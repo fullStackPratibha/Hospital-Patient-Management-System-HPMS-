@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "dgSpecHash": "oMkU9h637Fc=",
+  "success": false,
+  "projectFilePath": "C:\\Users\\PratibhaMaurya\\Desktop\\Hospital-Patient-Management-System-HPMS-\\HospitalManagementAPI\\HospitalManagementAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\PratibhaMaurya\\.nuget\\packages\\microsoft.entityframeworkcore.design\\11.0.0-preview.6.26359.118\\microsoft.entityframeworkcore.design.11.0.0-preview.6.26359.118.nupkg.sha512",
+    "C:\\Users\\PratibhaMaurya\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\11.0.0-preview.6.26359.118\\microsoft.entityframeworkcore.sqlserver.11.0.0-preview.6.26359.118.nupkg.sha512",
+    "C:\\Users\\PratibhaMaurya\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.28\\microsoft.netcore.app.ref.8.0.28.nupkg.sha512",
+    "C:\\Users\\PratibhaMaurya\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.28\\microsoft.windowsdesktop.app.ref.8.0.28.nupkg.sha512",
+    "C:\\Users\\PratibhaMaurya\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.28\\microsoft.aspnetcore.app.ref.8.0.28.nupkg.sha512",
+    "C:\\Users\\PratibhaMaurya\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.28\\microsoft.netcore.app.host.win-x64.8.0.28.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "Package Microsoft.EntityFrameworkCore.Design 11.0.0-preview.6.26359.118 is not compatible with net8.0 (.NETCoreApp,Version=v8.0). Package Microsoft.EntityFrameworkCore.Design 11.0.0-preview.6.26359.118 supports: net11.0 (.NETCoreApp,Version=v11.0)",
+      "projectPath": "C:\\Users\\PratibhaMaurya\\Desktop\\Hospital-Patient-Management-System-HPMS-\\HospitalManagementAPI\\HospitalManagementAPI.csproj",
+      "filePath": "C:\\Users\\PratibhaMaurya\\Desktop\\Hospital-Patient-Management-System-HPMS-\\HospitalManagementAPI\\HospitalManagementAPI.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore.Design",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    },
+    {
+      "code": "NU1202",
+      "level": "Error",
+      "message": "Package Microsoft.EntityFrameworkCore.SqlServer 11.0.0-preview.6.26359.118 is not compatible with net8.0 (.NETCoreApp,Version=v8.0). Package Microsoft.EntityFrameworkCore.SqlServer 11.0.0-preview.6.26359.118 supports: net11.0 (.NETCoreApp,Version=v11.0)",
+      "projectPath": "C:\\Users\\PratibhaMaurya\\Desktop\\Hospital-Patient-Management-System-HPMS-\\HospitalManagementAPI\\HospitalManagementAPI.csproj",
+      "filePath": "C:\\Users\\PratibhaMaurya\\Desktop\\Hospital-Patient-Management-System-HPMS-\\HospitalManagementAPI\\HospitalManagementAPI.csproj",
+      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
+}
