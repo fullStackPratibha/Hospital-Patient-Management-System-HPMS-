@@ -5,4 +5,5 @@ namespace HospitalManagementAPI.Interfaces;
     {
         Task<List<Patient>> GetAllAsync();
         Task AddAsync(Patient patient);
+        Task<Patient?> GetByIdAsync(int id);
     }

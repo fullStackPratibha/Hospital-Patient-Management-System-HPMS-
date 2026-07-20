@@ -27,4 +27,14 @@ namespace HospitalManagementAPI.Services;
             await _patientRepository.AddAsync(patient);
             return _mapper.Map<PatientDto>(patient);
         }
+        
+        public async Task<PatientDto?> GetByIdAsync(int id)
+        {
+               var patient = await _patientRepository.GetByIdAsync(id);
+               if(patient == null)
+               {
+                    return null;
+               }
+               return _mapper.Map<PatientDto>(patient);
+        }
     }

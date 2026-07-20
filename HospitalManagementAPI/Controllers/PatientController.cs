@@ -28,4 +28,15 @@ public class PatientController : ControllerBase
         await _patientService.CreateAsync(dto);
         return Ok("Patient created successfully");
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetPatientById(int id)
+    {
+        var patients = await _patientService.GetByIdAsync(id);
+        if (patients == null)
+        {
+            return NotFound();
+        }
+        return Ok(patients);
+    }
 } 
