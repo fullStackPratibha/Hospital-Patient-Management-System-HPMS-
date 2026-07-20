@@ -140,3 +140,5 @@ C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\Hospita
 C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\HospitalManagementAPI\obj\Debug\net8.0\HospitalManagementAPI.pdb
 C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\HospitalManagementAPI\obj\Debug\net8.0\HospitalManagementAPI.genruntimeconfig.cache
 C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\HospitalManagementAPI\obj\Debug\net8.0\ref\HospitalManagementAPI.dll
+C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\HospitalManagementAPI\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\HospitalManagementAPI\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
