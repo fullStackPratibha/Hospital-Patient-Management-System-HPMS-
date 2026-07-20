@@ -15,7 +15,7 @@ namespace HospitalManagementAPI.Repositories;
 
         public async Task<List<Patient>> GetAllAsync()
         {
-            return await _context.Patients.ToListAsync();
+            return await _context.Patients.Where(p=>!p.IsDeleted).ToListAsync();
         }
 
         public async Task AddAsync(Patient patient)
@@ -25,6 +25,34 @@ namespace HospitalManagementAPI.Repositories;
         }
         public async Task<Patient?> GetByIdAsync(int id)
         {
-            return await _context.Patients.FindAsync(id);
+            return await _context.Patients.Where(p=>p.Id == id && !p.IsDeleted).FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> ExistsAsync(string email, string phoneNumber)
+        {
+            return await _context.Patients.AnyAsync(p => 
+            p.Email == email || 
+            p.PhoneNumber == phoneNumber);
+        }
+
+        public async Task UpdateAsync(Patient patient)
+        {
+            _context.Patients.Update(patient);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var patient = await _context.Patients.FindAsync(id);
+            if (patient == null)
+            {
+                return false;
+            }
+            patient.IsDeleted = true;
+
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }

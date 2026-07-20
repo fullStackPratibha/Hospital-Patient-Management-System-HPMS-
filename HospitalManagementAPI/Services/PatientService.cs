@@ -22,6 +22,11 @@ namespace HospitalManagementAPI.Services;
 
         public async Task<PatientDto> CreateAsync(CreatePatientDto dto)
         {
+            bool exists = await _patientRepository.ExistsAsync(dto.Email, dto.PhoneNumber);
+            if (exists)
+            {
+                throw new Exception("Patient with the same email or phone number already exists.");
+            }
             var patient = _mapper.Map<Patient>(dto);
 
             await _patientRepository.AddAsync(patient);
@@ -37,4 +42,27 @@ namespace HospitalManagementAPI.Services;
                }
                return _mapper.Map<PatientDto>(patient);
         }
+
+        public async Task<bool> UpdateAsync(int id, UpdatePatientDto dto)
+        {
+            var patient = await _patientRepository.GetByIdAsync(id);
+            if (patient == null)
+            {
+                return false;
+            }
+
+            
+            patient.FirstName = dto.FirstName;
+            patient.LastName = dto.LastName;
+            patient.Address = dto.Address;
+
+            await _patientRepository.UpdateAsync(patient);
+            return true;
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+         return await _patientRepository.DeleteAsync(id);
+        }
+
     }

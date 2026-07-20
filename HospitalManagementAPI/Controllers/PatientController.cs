@@ -39,4 +39,26 @@ public class PatientController : ControllerBase
         }
         return Ok(patients);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdatePatient(int id, UpdatePatientDto dto)
+    {
+        bool result = await _patientService.UpdateAsync(id, dto);
+        if (!result)
+        {
+            return NotFound();
+        }
+        return Ok("Patient updated successfully");
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeletePatient(int id)
+    {
+        bool result = await _patientService.DeleteAsync(id);
+        if (!result)
+        {
+            return NotFound();
+        }
+        return Ok("Patient deleted successfully");
+    }
 } 
