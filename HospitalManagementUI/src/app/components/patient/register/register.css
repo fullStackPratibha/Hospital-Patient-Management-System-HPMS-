@@ -1,0 +1,999 @@
+/* ==========================================
+   GOOGLE FONT
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* ==========================================
+   RESET
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#edf6ff;
+    overflow-x:hidden;
+}
+
+/* ==========================================
+   PAGE BACKGROUND
+========================================== */
+
+.registration-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+    box-sizing: border-box;
+
+    background:
+    linear-gradient(135deg,#eef7ff 0%,#dcefff 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ==========================================
+   MAIN CARD
+========================================== */
+
+.registration-card{
+
+    width:min(1200px,100%);
+
+    background:#ffffff;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    box-shadow:
+    0 15px 45px rgba(0,0,0,.08);
+
+    position:relative;
+}
+
+/* ==========================================
+   LEFT SIDE
+========================================== */
+
+.form-section{
+
+    padding:40px;
+
+    background:#ffffff;
+    flex:1;
+    min-width: 0;
+}
+
+/* ==========================================
+   RIGHT SIDE
+========================================== */
+
+.image-section{
+
+    flex:1;
+
+    min-width:0;
+
+    background:
+    linear-gradient(160deg,#3b82f6,#60a5fa);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:30px;
+}
+
+/* Decorative circles */
+
+.image-section::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:320px;
+
+    height:320px;
+
+    background:rgba(255,255,255,.10);
+
+    border-radius:50%;
+
+    top:-90px;
+
+    right:-80px;
+}
+
+.image-section::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+
+    height:240px;
+
+    background:rgba(255,255,255,.08);
+
+    border-radius:50%;
+
+    bottom:-70px;
+
+    left:-60px;
+}
+
+/* ==========================================
+   HEADING
+========================================== */
+
+.heading{
+
+    margin-bottom:35px;
+}
+
+.heading h1{
+
+    font-size:38px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+    margin-bottom:10px;
+}
+
+.heading h1 span{
+
+    color:#2563eb;
+}
+
+.heading p{
+
+    font-size:15px;
+
+    color:#64748b;
+
+    line-height:1.8;
+
+    max-width:520px;
+}
+
+/* ==========================================
+   LABELS
+========================================== */
+
+.form-label{
+
+    font-weight:600;
+
+    color:#334155;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+}
+
+/* ==========================================
+   IMAGE
+========================================== */
+
+img{
+
+    max-width:100%;
+
+    display:block;
+}
+
+.image-section img{
+
+    width:100%;
+
+    max-width:420px;
+
+    object-fit:contain;
+
+    z-index:2;
+
+    animation:floatImage 4s ease-in-out infinite;
+}
+
+/* ==========================================
+   IMAGE TEXT
+========================================== */
+
+.image-section h2{
+
+    color:#fff;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    margin-top:25px;
+
+    text-align:center;
+
+    z-index:2;
+}
+
+.image-section p{
+
+    color:rgba(255,255,255,.90);
+
+    text-align:center;
+
+    margin-top:15px;
+
+    line-height:1.8;
+
+    max-width:350px;
+
+    z-index:2;
+}
+
+/* ==========================================
+   ANIMATION
+========================================== */
+
+@keyframes floatImage{
+
+    0%{
+
+        transform:translateY(0px);
+    }
+
+    50%{
+
+        transform:translateY(-10px);
+    }
+
+    100%{
+
+        transform:translateY(0px);
+    }
+
+}
+/* ==========================================
+   INPUT BOX
+========================================== */
+
+.input-box{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    background:#f8fbff;
+
+    border:2px solid #e2e8f0;
+
+    border-radius:15px;
+
+    transition:.35s;
+
+    overflow:hidden;
+    
+    margin: 5px;
+}
+
+.input-box:hover{
+
+    border-color:#93c5fd;
+
+    box-shadow:0 8px 18px rgba(59,130,246,.12);
+}
+
+.input-box:focus-within{
+
+    border-color:#2563eb;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.18);
+}
+
+/* ==========================================
+   INPUT ICON
+========================================== */
+
+.input-box i{
+
+    width:55px;
+
+    text-align:center;
+
+    font-size:15px;
+
+    color:#3b82f6;
+
+    flex-shrink:0;
+}
+
+/* ==========================================
+   INPUT
+========================================== */
+
+.form-control{
+
+    border:none !important;
+
+    background:transparent !important;
+
+    box-shadow:none !important;
+
+    height:58px;
+
+    font-size:15px;
+
+    color:#1e293b;
+
+    padding-left:0;
+}
+
+.form-control::placeholder{
+
+    color:#94a3b8;
+}
+
+/* ==========================================
+   SELECT
+========================================== */
+
+.form-select{
+
+    border:none !important;
+
+    background:transparent !important;
+
+    box-shadow:none !important;
+
+    height:58px;
+
+    font-size:15px;
+
+    color:#334155;
+
+    padding-left:0;
+}
+
+/* ==========================================
+   TEXTAREA
+========================================== */
+
+.textarea-box{
+
+    align-items:flex-start;
+}
+
+.textarea-box i{
+
+    padding-top:18px;
+}
+
+textarea.form-control{
+
+    min-height:120px;
+
+    resize:none;
+
+    padding-top:16px;
+}
+
+/* ==========================================
+   PASSWORD EYE ICON
+========================================== */
+
+.eye{
+
+    width:55px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    color:#64748b;
+
+    transition:.3s;
+}
+
+.eye:hover{
+
+    color:#2563eb;
+}
+
+/* ==========================================
+   CHECKBOX
+========================================== */
+
+.form-check{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.form-check-input{
+
+    width:20px;
+
+    height:20px;
+
+    cursor:pointer;
+}
+
+.form-check-label{
+
+    color:#64748b;
+
+    font-size:14px;
+}
+
+.form-check-label a{
+
+    color:#2563eb;
+
+    text-decoration:none;
+
+    font-weight:600;
+}
+
+.form-check-label a:hover{
+
+    text-decoration:underline;
+}
+
+/* ==========================================
+   REGISTER BUTTON
+========================================== */
+
+.register-btn{
+
+    height:60px;
+
+    border:none;
+
+    border-radius:16px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:white;
+
+    background:linear-gradient(90deg,#2563eb,#3b82f6);
+
+    transition:.35s;
+
+    letter-spacing:.5px;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.28);
+}
+
+.register-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 18px 35px rgba(37,99,235,.35);
+
+    background:linear-gradient(90deg,#1d4ed8,#2563eb);
+}
+
+.register-btn:active{
+
+    transform:scale(.98);
+}
+
+/* ==========================================
+   FEATURE BOX
+========================================== */
+
+.features{
+
+    margin-top:40px;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    z-index:2;
+}
+
+.feature{
+
+    flex:1;
+
+    background:rgba(255,255,255,.18);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:18px;
+
+    padding:18px;
+
+    text-align:center;
+
+    color:white;
+
+    transition:.35s;
+}
+
+.feature:hover{
+
+    transform:translateY(-8px);
+
+    background:rgba(255,255,255,.28);
+}
+
+.feature i{
+
+    font-size:28px;
+
+    margin-bottom:12px;
+
+    display:block;
+}
+
+.feature h6{
+
+    margin:0;
+
+    font-size:16px;
+
+    font-weight:600;
+}
+
+.feature span{
+
+    font-size:13px;
+
+    opacity:.9;
+}
+
+/* ==========================================
+   INPUT SPACING
+========================================== */
+
+.mb-4{
+
+    margin-bottom:24px !important;
+}
+/* ==========================================
+   CARD ANIMATION
+========================================== */
+
+.registration-card{
+
+    transition:.4s ease;
+}
+
+.registration-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 30px 70px rgba(15,23,42,.12);
+}
+
+/* ==========================================
+   SMOOTH TRANSITION
+========================================== */
+
+*{
+
+    transition:
+    background .3s,
+    color .3s,
+    border-color .3s,
+    box-shadow .3s,
+    transform .3s;
+}
+
+/* ==========================================
+   CUSTOM SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+
+    background:#edf6ff;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#60a5fa;
+
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#2563eb;
+}
+
+/* ==========================================
+   BUTTON ICON
+========================================== */
+
+.register-btn i{
+
+    margin-right:8px;
+
+    font-size:18px;
+}
+
+/* ==========================================
+   IMAGE EFFECT
+========================================== */
+
+.image-section img{
+
+    filter:drop-shadow(0 25px 35px rgba(0,0,0,.18));
+}
+
+/* ==========================================
+   FEATURE ICON ANIMATION
+========================================== */
+
+.feature i{
+
+    transition:.35s;
+}
+
+.feature:hover i{
+
+    transform:scale(1.2) rotate(10deg);
+}
+
+/* ==========================================
+   FEATURE TEXT
+========================================== */
+
+.feature h6{
+
+    margin-top:5px;
+}
+
+.feature span{
+
+    display:block;
+
+    margin-top:3px;
+}
+
+/* ==========================================
+   PLACEHOLDER
+========================================== */
+
+input::placeholder,
+textarea::placeholder{
+
+    color:#94a3b8;
+}
+
+/* ==========================================
+   REMOVE NUMBER ARROWS
+========================================== */
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{
+
+    -webkit-appearance:none;
+
+    margin:0;
+}
+
+input[type=number]{
+
+    appearance:textfield;
+
+    -moz-appearance:textfield;
+}
+
+/* ==========================================
+   LINKS
+========================================== */
+
+a{
+
+    transition:.3s;
+}
+
+a:hover{
+
+    color:#1d4ed8;
+}
+
+/* ==========================================
+   MOBILE (991px)
+========================================== */
+
+@media(max-width:991px){
+
+.registration-card{
+
+    flex-direction:column;
+}
+
+.form-section{
+
+    width:100%;
+
+    padding:40px;
+}
+
+.image-section{
+
+    width:100%;
+
+    padding:50px 30px;
+}
+
+.features{
+
+    margin-top:30px;
+}
+
+.heading h1{
+
+    font-size:32px;
+}
+
+}
+
+/* ==========================================
+   MOBILE (768px)
+========================================== */
+
+@media(max-width:768px){
+
+.registration-page{
+
+    padding:20px;
+}
+
+.form-section{
+
+    padding:30px;
+}
+
+.heading{
+
+    text-align:center;
+}
+
+.heading h1{
+
+    font-size:28px;
+}
+
+.heading p{
+
+    max-width:100%;
+}
+.row{
+    row-gap: 20px;
+}
+
+.row>.col-md-6{
+   
+
+    margin-bottom:0;
+}
+
+.features{
+
+    flex-direction:column;
+}
+
+.feature{
+
+    width:100%;
+}
+
+.image-section img{
+
+    max-width:280px;
+}
+
+}
+
+/* ==========================================
+   MOBILE (576px)
+========================================== */
+
+@media(max-width:576px){
+
+.registration-card{
+
+    border-radius:20px;
+}
+
+.form-section{
+
+    padding:22px;
+}
+
+.heading h1{
+
+    font-size:24px;
+}
+
+.form-control,
+.form-select{
+
+    height:52px;
+
+    font-size:14px;
+}
+
+.input-box i{
+
+    width:48px;
+
+    font-size:16px;
+}
+
+.register-btn{
+
+    height:55px;
+
+    font-size:16px;
+}
+
+.image-section{
+
+    padding:30px 20px;
+}
+
+.image-section h2{
+
+    font-size:24px;
+}
+
+.image-section p{
+
+    font-size:14px;
+}
+
+}
+
+/* ==========================================
+   LARGE SCREEN
+========================================== */
+
+@media(min-width:1500px){
+
+.registration-card{
+
+    max-width:1450px;
+}
+
+.heading h1{
+
+    font-size:42px;
+}
+
+.image-section img{
+
+    max-width:480px;
+}
+
+}
+
+/* ==========================================
+   BACKGROUND SHAPES
+========================================== */
+
+.registration-page::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:350px;
+
+    height:350px;
+
+    background:rgba(96,165,250,.18);
+
+    border-radius:50%;
+
+    top:-100px;
+
+    left:-120px;
+
+    filter:blur(50px);
+
+    z-index:0;
+}
+
+.registration-page::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+
+    height:300px;
+
+    background:rgba(59,130,246,.15);
+
+    border-radius:50%;
+
+    bottom:-100px;
+
+    right:-80px;
+
+    filter:blur(60px);
+
+    z-index:0;
+}
+
+/* ==========================================
+   KEEP CARD ABOVE SHAPES
+========================================== */
+
+.registration-card{
+
+    z-index:2;
+}
+
+/* ==========================================
+   SELECTION COLOR
+========================================== */
+
+::selection{
+
+    background:#2563eb;
+
+    color:white;
+}
+
+/* ==========================================
+   END
+========================================== */

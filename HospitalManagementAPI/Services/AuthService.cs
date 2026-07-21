@@ -38,6 +38,7 @@ public class AuthService(
             FirstName = requestDto.FirstName,
             LastName = requestDto.LastName,
             PhoneNumber = requestDto.Phone,
+            
             Email = requestDto.Email,
             Gender = requestDto.Gender,
             DateOfBirth = requestDto.DateOfBirth,
