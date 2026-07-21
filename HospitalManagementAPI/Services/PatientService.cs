@@ -1,6 +1,7 @@
 using HospitalManagementAPI.Models;
 using HospitalManagementAPI.DTOs;
 using HospitalManagementAPI.Interfaces;
+using HospitalManagementAPI.Exceptions;
 using AutoMapper;
 
 namespace HospitalManagementAPI.Services;
@@ -22,10 +23,14 @@ namespace HospitalManagementAPI.Services;
 
         public async Task<PatientDto> CreateAsync(CreatePatientDto dto)
         {
-            bool exists = await _patientRepository.ExistsAsync(dto.Email, dto.PhoneNumber);
-            if (exists)
+            var existingPatient = await _patientRepository.GetByEmailOrPhoneAsync(dto.Email, dto.PhoneNumber);
+            if (existingPatient != null)
             {
-                throw new Exception("Patient with the same email or phone number already exists.");
+                if (existingPatient.Email == dto.Email)
+                    throw new DuplicateEmailException("Email already exists.");
+
+                if (existingPatient.PhoneNumber == dto.PhoneNumber)
+                    throw new DuplicatePhoneException("Phone number already exists.");
             }
             var patient = _mapper.Map<Patient>(dto);
 
@@ -38,7 +43,7 @@ namespace HospitalManagementAPI.Services;
                var patient = await _patientRepository.GetByIdAsync(id);
                if(patient == null)
                {
-                    return null;
+                    throw new PatientNotFoundException($"Patient with ID {id} not found.");
                }
                return _mapper.Map<PatientDto>(patient);
         }

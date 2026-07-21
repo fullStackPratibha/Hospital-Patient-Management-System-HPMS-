@@ -28,9 +28,9 @@ namespace HospitalManagementAPI.Repositories;
             return await _context.Patients.Where(p=>p.Id == id && !p.IsDeleted).FirstOrDefaultAsync();
         }
 
-        public async Task<bool> ExistsAsync(string email, string phoneNumber)
+        public async Task<Patient?>  GetByEmailOrPhoneAsync(string email, string phoneNumber)
         {
-            return await _context.Patients.AnyAsync(p => 
+            return await _context.Patients.FirstOrDefaultAsync(p => 
             p.Email == email || 
             p.PhoneNumber == phoneNumber);
         }

@@ -1,6 +1,7 @@
 using HospitalManagementAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using HospitalManagementAPI.DTOs;
+using HospitalManagementAPI.Response;
 
 namespace HospitalManagementAPI.Controllers;
 
@@ -9,56 +10,98 @@ namespace HospitalManagementAPI.Controllers;
 public class PatientController : ControllerBase
 {
     private readonly IPatientService _patientService;
+    private readonly ILogger<PatientController> _logger;
 
-    public PatientController(IPatientService patientService)
+    public PatientController(IPatientService patientService, ILogger<PatientController> logger)
     {
         _patientService = patientService;
+        _logger = logger;
     }
 
     [HttpGet]
     public async Task<IActionResult> GetPatients()
     {
+        _logger.LogInformation("Fetching all patients.");
         var patients = await _patientService.GetAllPatientsAsync();
-        return Ok(patients);
+
+        var response = new ApiResponse<List<PatientDto>>(
+        true,
+        StatusCodes.Status200OK,
+        "Patients fetched successfully.",
+        patients);
+        return Ok(response);
     }
 
     [HttpPost]
     public async Task<IActionResult> CreatePatient(CreatePatientDto dto)
     {
-        await _patientService.CreateAsync(dto);
-        return Ok("Patient created successfully");
+        _logger.LogInformation("Creating patient with email {Email}",dto.Email);
+        var patient = await _patientService.CreateAsync(dto);
+        _logger.LogInformation("Patient created successfully.");
+
+        var response = new ApiResponse<PatientDto>(
+        true,
+        StatusCodes.Status201Created,
+        "Patient created successfully.",
+        patient);
+
+        return CreatedAtAction(
+            nameof(GetPatientById),
+            new { id = patient.Id },
+            response);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetPatientById(int id)
     {
+        _logger.LogInformation($"Fetching patient with Id {id}");
         var patients = await _patientService.GetByIdAsync(id);
         if (patients == null)
         {
             return NotFound();
         }
-        return Ok(patients);
+        var response = new ApiResponse<PatientDto>(
+            true,
+            StatusCodes.Status200OK,
+            "Patients fetched successfully.",
+            patients);
+        return Ok(response);
     }
 
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdatePatient(int id, UpdatePatientDto dto)
     {
+        _logger.LogInformation("Updating patient {Id}", id);
         bool result = await _patientService.UpdateAsync(id, dto);
         if (!result)
         {
             return NotFound();
         }
-        return Ok("Patient updated successfully");
+        var response = new ApiResponse<object>(
+        true,
+        StatusCodes.Status200OK,
+        "Patient updated successfully.",
+        result);
+
+        return Ok(response);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeletePatient(int id)
     {
+        _logger.LogInformation("Deleting patient {Id}", id);
         bool result = await _patientService.DeleteAsync(id);
         if (!result)
         {
             return NotFound();
         }
-        return Ok("Patient deleted successfully");
+        var response = new ApiResponse<object>(
+        true,
+        StatusCodes.Status200OK,
+        "Patient deleted successfully.",
+        null);
+
+        return Ok(response);
+       
     }
 } 
