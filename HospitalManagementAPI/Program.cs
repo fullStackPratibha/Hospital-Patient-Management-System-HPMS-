@@ -5,6 +5,7 @@ using HospitalManagementAPI.Repositories;
 using HospitalManagementAPI.Services;
 using HospitalManagementAPI.Mappings;
 using HospitalManagementAPI.Middleware;
+using HospitalManagementAPI.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,11 +16,15 @@ builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+
 builder.Services.AddScoped<IPatientService, PatientService>();
 
 builder.Services.AddAutoMapper(typeof(PatientProfile));
 
 builder.Services.AddScoped<IPatientService, PatientService>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddControllers();
 

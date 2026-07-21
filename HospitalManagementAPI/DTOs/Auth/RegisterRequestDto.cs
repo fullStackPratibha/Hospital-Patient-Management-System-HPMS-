@@ -29,7 +29,7 @@ public class RegisterRequestDto
     public string Phone { get; set; } = string.Empty;
 
     [Required]
-    public string Gender { get; set; }
+    public string Gender { get; set; } = string.Empty;
 
     [Required]
     public DateTime DateOfBirth { get; set; }

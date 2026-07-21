@@ -6,6 +6,7 @@ namespace HospitalManagementAPI.Interfaces;
         Task<List<Patient>> GetAllAsync();
         Task<Patient?> GetByIdAsync(int id);
         Task AddAsync(Patient patient);
+        Task SaveChangesAsync();
         Task<Patient?> GetByEmailOrPhoneAsync(string email, string phoneNumber);
         Task UpdateAsync(Patient patient);
         Task<bool> DeleteAsync(int id);

@@ -21,6 +21,10 @@ namespace HospitalManagementAPI.Repositories;
         public async Task AddAsync(Patient patient)
         {
             await _context.Patients.AddAsync(patient);
+        }
+
+        public async Task SaveChangesAsync()
+        {
             await _context.SaveChangesAsync();
         }
         public async Task<Patient?> GetByIdAsync(int id)

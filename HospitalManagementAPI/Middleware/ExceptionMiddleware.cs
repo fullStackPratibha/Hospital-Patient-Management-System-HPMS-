@@ -38,8 +38,10 @@ public class ExceptionMiddleware
 
             var response = new
             {
-                StatusCode = context.Response.StatusCode,
-                Message = ex.Message
+                    StatusCode = context.Response.StatusCode,
+                    Message = ex.Message,
+                    InnerException = ex.InnerException?.Message,
+                    StackTrace = ex.StackTrace
             };
             await context.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
