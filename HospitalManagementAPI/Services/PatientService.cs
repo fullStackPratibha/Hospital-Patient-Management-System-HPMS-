@@ -1,4 +1,4 @@
-using HospitalManagementAPI.Models;
+using HospitalManagementAPI.Entities;
 using HospitalManagementAPI.DTOs;
 using HospitalManagementAPI.Interfaces;
 using HospitalManagementAPI.Exceptions;

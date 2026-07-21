@@ -13,6 +13,8 @@ builder.Services.AddDbContext<AppDbContext>(options=>
 
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 
+builder.Services.AddScoped<IUserRepository,UserRepository>();
+
 builder.Services.AddScoped<IPatientService, PatientService>();
 
 builder.Services.AddAutoMapper(typeof(PatientProfile));

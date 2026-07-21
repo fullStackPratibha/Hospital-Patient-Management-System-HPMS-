@@ -1,6 +1,6 @@
 using AutoMapper;
 using HospitalManagementAPI.DTOs;
-using HospitalManagementAPI.Models;
+using HospitalManagementAPI.Entities;
 
 namespace HospitalManagementAPI.Mappings;
 

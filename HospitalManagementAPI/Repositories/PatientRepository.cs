@@ -1,4 +1,4 @@
-using HospitalManagementAPI.Models;
+using HospitalManagementAPI.Entities;
 using HospitalManagementAPI.Interfaces;
 using HospitalManagementAPI.Data;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +15,7 @@ namespace HospitalManagementAPI.Repositories;
 
         public async Task<List<Patient>> GetAllAsync()
         {
-            return await _context.Patients.Where(p=>!p.IsDeleted).ToListAsync();
+            return await _context.Patients.AsNoTracking().Where(p=>!p.IsDeleted).ToListAsync();
         }
 
         public async Task AddAsync(Patient patient)
@@ -25,7 +25,7 @@ namespace HospitalManagementAPI.Repositories;
         }
         public async Task<Patient?> GetByIdAsync(int id)
         {
-            return await _context.Patients.Where(p=>p.Id == id && !p.IsDeleted).FirstOrDefaultAsync();
+            return await _context.Patients.AsNoTracking().Where(p=>p.Id == id && !p.IsDeleted).FirstOrDefaultAsync();
         }
 
         public async Task<Patient?>  GetByEmailOrPhoneAsync(string email, string phoneNumber)

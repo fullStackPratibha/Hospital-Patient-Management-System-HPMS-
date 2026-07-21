@@ -1,4 +1,4 @@
-using HospitalManagementAPI.Models;
+using HospitalManagementAPI.Entities;
 
 namespace HospitalManagementAPI.Interfaces;
     public interface IPatientRepository
