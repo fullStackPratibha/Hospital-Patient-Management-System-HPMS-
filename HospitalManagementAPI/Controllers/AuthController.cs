@@ -15,4 +15,11 @@ public class AuthController(IAuthService authService) : ControllerBase
         return StatusCode(response.StatusCode,response);
     }
 
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(LoginRequestDto loginRequestDto)
+    {
+        var response = await authService.LoginAsync(loginRequestDto);
+        return Ok(response);
+    }
+
 }

@@ -6,4 +6,5 @@ namespace HospitalManagementAPI.Interfaces;
 public interface IAuthService
 {
     Task<ApiResponse<string>> RegisterAsync(RegisterRequestDto request);
+    Task<ApiResponse<LoginResponseDto>> LoginAsync(LoginRequestDto requestDto);
 }

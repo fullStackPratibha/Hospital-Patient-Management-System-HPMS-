@@ -14,7 +14,8 @@ public class UserRepository(AppDbContext context):IUserRepository
     }
     public async Task<User?> GetByEmailAsync(string email)
     {
-        return await context.Users.FirstOrDefaultAsync(x => x.Email == email);
+        email = email.Trim().ToLower();
+        return await context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == email);
     }
     public async Task<User?> GetByIdAsync(int id)
     {

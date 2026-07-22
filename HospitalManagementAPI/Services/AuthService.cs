@@ -1,15 +1,17 @@
+using Azure;
 using HospitalManagementAPI.DTOs.Auth;
 using HospitalManagementAPI.Entities;
+using HospitalManagementAPI.Enums;
 using HospitalManagementAPI.Interfaces;
 using HospitalManagementAPI.Response;
-using HospitalManagementAPI.Enums;
 
 namespace HospitalManagementAPI.Services;
 
 public class AuthService(
     IUserRepository userRepository,
     IPatientRepository patientRepository,
-    IPasswordHasher passwordHasher) : IAuthService
+    IPasswordHasher passwordHasher, 
+    IJwtTokenGenerator jwtTokenGenerator) : IAuthService
 {
     public async Task<ApiResponse<string>> RegisterAsync(RegisterRequestDto requestDto)
     {
@@ -50,12 +52,47 @@ public class AuthService(
 
         await userRepository.AddAsync(user);
         await userRepository.SaveChangesAsync();
-    
+
         return new ApiResponse<string>(
         true,
         StatusCodes.Status201Created,
         "Register logic created successfully.",
-         $"User ID: {user.Id}"
+        $"User Id {user.Id}"
         );
     }
+
+    public async Task<ApiResponse<LoginResponseDto>> LoginAsync(LoginRequestDto requestDto)
+    {
+        requestDto.Email = requestDto.Email.Trim().ToLower();
+
+        var user = await userRepository.GetByEmailAsync( requestDto.Email );
+        if(user == null)
+        {
+            throw new Exception("Invalid Email.");
+        }
+        bool isvalidPassword = passwordHasher.VerifyPasswordHash(
+            requestDto.Password,
+            user.PasswordHash,
+            user.PasswordSalt);
+
+        if(!isvalidPassword)
+        {
+            throw new Exception("Invalid Password");
+        }
+        string token = jwtTokenGenerator.GenerateToken(user);
+
+        var response = new LoginResponseDto
+        {
+            Token = token,
+            Email = user.Email,
+            Role = user.Role.ToString()
+        };
+        return new ApiResponse<LoginResponseDto>(
+            true,
+            StatusCodes.Status200OK,
+            "Login Successful",
+            response
+            );
+    }
+
 }
