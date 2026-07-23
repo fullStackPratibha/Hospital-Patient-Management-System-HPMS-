@@ -1,0 +1,102 @@
+@import "../register/register.css";
+
+.login-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+.login-card{
+
+    width:min(1100px,95%);
+
+    display:flex;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.08);
+}
+
+.login-section{
+
+    flex:1;
+
+    padding:70px;
+}
+
+.login-options{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.login-options a{
+
+    text-decoration:none;
+
+    color:#2563eb;
+
+    font-weight:600;
+}
+
+.login-options a:hover{
+
+    text-decoration:underline;
+}
+
+.login-btn{
+
+    height:58px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:linear-gradient(90deg,#2563eb,#3b82f6);
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:600;
+}
+
+.login-btn:hover{
+
+    transform:translateY(-3px);
+}
+
+.register-link{
+
+    margin-top:25px;
+
+    text-align:center;
+}
+
+.register-link a{
+
+    text-decoration:none;
+
+    color:#2563eb;
+
+    font-weight:600;
+}
+
+.register-link a:hover{
+
+    text-decoration:underline;
+}
