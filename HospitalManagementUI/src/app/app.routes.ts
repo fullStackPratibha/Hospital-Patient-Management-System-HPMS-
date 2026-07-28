@@ -1,19 +1,30 @@
 import { Routes } from '@angular/router';
-import { Register } from './components/auth/register/register';
-import { Login } from './components/auth/login/login';
+import { PatientRegister } from './features/auth/patient-register/patient-register';
+import { LoginComponent } from './features/auth/login/login';
+import { LandingPage } from './features/landing/landing';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo:'login',
+    redirectTo:'LandingPage',
     pathMatch:'full'
   },
   {
-    path:'login',
-    component:Login
+    path:'',
+    component:LandingPage
+  },
+   {
+      path:'login',
+      redirectTo:'login/patient',
+      pathMatch:'full'
+  },
+
+  {
+      path:'login/:role',
+      component:LoginComponent
   },
   {
-    path:'register',
-    component:Register
+    path:'patient-register',
+    component:PatientRegister
   }
 ];
