@@ -1,477 +1,208 @@
-<div class="registration-page">
+<div class="page">
+    <div class="content-grid">
+        <!-- LEFT: illustration panel -->
+        <section class="showcase" aria-hidden="true">
+            <div class="showcase-image"> <img src="/patient-register.png" alt="Doctor Registration"></div>
+        </section>
 
-    <div class="registration-card">
+        <!-- RIGHT: create account card -->
+        <section class="form-card">
+            <app-role-tabs active="patient"></app-role-tabs>
 
-        <!-- ================= LEFT SIDE ================= -->
+            <h1>Create Patient Account</h1>
+            <p class="form-sub">Join the CarePlus provider network.</p>
 
-        <div class="form-section">
-
-            <div class="heading">
-
-                <h1>
-                    Patient <span>Registration</span>
-                </h1>
-
-                <p>
-                    Create your account to book appointments and manage your healthcare.
-                </p>
-
-            </div>
-
-            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
-                <!-- First & Last Name -->
-                 @if(errorMessage != ''){
-                 <div class="alert alert-danger mt-3">
-                {{ errorMessage }}
-                </div>
-            }
-
-                <div class="row">
-
-                    <div class="col-md-6 mb-6">
-
-                        <label class="form-label">
-                            First Name
-                        </label>
-
-                        <div class="input-box">
-
-                            <i class="bi bi-person"></i>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                formControlName="firstName"
-                                placeholder="Enter first name">
-
-                        </div>
-                         @if(registerForm.get('firstName')?.touched &&
-                        registerForm.get('firstName')?.hasError('required'))
+            <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="field-row two-col">
+                    <div class="field">
+                        <label for="firstName">First Name</label>
+                        <input id="firstName" type="text" formControlName="firstName" autocomplete="given-name" />
+                        @if(getError('firstName'))
                         {
+                        <small class="field-error">
 
-                        <div class="text-danger mt-1">
+                            {{ getError('firstName') }}
 
-                            First Name is required.
-
-                        </div>
-                    }
-
+                        </small>
+                        }
                     </div>
 
-                    <div class="col-md-6 mb-4">
-
-                        <label class="form-label">
-                            Last Name
-                        </label>
-
-                        <div class="input-box">
-
-                            <i class="bi bi-person"></i>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                formControlName="lastName"
-                                placeholder="Enter last name">
-
-                        </div>
-                         @if(registerForm.get('firstName')?.touched &&
-                        registerForm.get('firstName')?.hasError('required'))
+                    <div class="field">
+                        <label for="lastName">Last Name</label>
+                        <input id="lastName" type="text" formControlName="lastName" autocomplete="family-name" />
+                        @if(getError('lastName'))
                         {
+                        <small class="field-error">
 
-                        <div class="text-danger mt-1">
+                            {{ getError('lastName') }}
 
-                            Last Name is required.
-
-                        </div>
-                    }
-
+                        </small>
+                        }
                     </div>
-
                 </div>
 
-                <!-- Email & Phone-->
+                <div class="field-row">
+                    <div class="field">
+                        <label for="email">Email Address</label>
+                        <input id="email" formControlName="email" type="email" autocomplete="email" />
 
-                <div class="row">
-
-                    <div class="col-md-6 mb-4">
-
-                    <label class="form-label">
-
-                        Email Address
-
-                    </label>
-
-                    <div class="input-box">
-
-                        <i class="bi bi-envelope"></i>
-
-                        <input
-                            type="email"
-                            class="form-control"
-                            formControlName="email"
-                            placeholder="Enter email address">
-
-                    </div>
-                     @if(registerForm.get('firstName')?.touched &&
-                        registerForm.get('firstName')?.hasError('required'))
+                        @if(getError('email'))
                         {
+                        <small class="field-error">
 
-                        <div class="text-danger mt-1">
+                            {{getError('email')}}
 
-                            Email is required.
-
-                        </div>
-
-                    }
-
+                        </small>
+                        }
+                    </div>
                 </div>
 
-                    <div class="col-md-6 mb-4">
-
-                        <label class="form-label">
-
-                            Phone Number
-
-                        </label>
-
-                        <div class="input-box">
-
-                            <i class="bi bi-telephone"></i>
-
-                            <input
-                                type="text"
-                                class="form-control"
-                                formControlName="phone"
-                                placeholder="Enter phone number">
-
-                        </div>
-
-                         @if(registerForm.get('firstName')?.touched &&
-                        registerForm.get('firstName')?.hasError('required'))
+                <div class="field-row two-col">
+                    <div class="field">
+                        <label for="mobile">Mobile Number</label>
+                        <input id="mobile" type="tel" formControlName="phone" autocomplete="tel" />
+                        @if(getError('phone'))
                         {
+                        <small class="field-error">
 
-                        <div class="text-danger mt-1">
+                            {{getError('phone')}}
 
-                            Phone Number is required.
-
-                        </div>
-                    }
-
+                        </small>
+                        }
                     </div>
 
-                    
-
-                </div>
-
-                <!--  DOB & Gender -->
-
-                <div class="row">
-
-
-                    <div class="col-md-6 mb-4">
-
-                        <label class="form-label">
-
-                            Date of Birth
-
-                        </label>
-
-                        <div class="input-box">
-
-                            <i class="bi bi-calendar-event"></i>
-
-                            <input
-                                type="date"
-                                class="form-control"
-                                formControlName="dateOfBirth"
-                                placeholder="DOB">
-
-                        </div>
-                         @if(registerForm.get('firstName')?.touched &&
-                        registerForm.get('firstName')?.hasError('required'))
-                        {
-
-                        <div class="text-danger mt-1">
-
-                            DOB is required.
-
-                        </div>
-                    }
-
-                    </div>
-
-                     <div class="col-md-6 mb-4">
-
-                        <label class="form-label">
-
-                            Gender
-
-                        </label>
-
-                        <div class="input-box">
-
-                            <i class="bi bi-gender-ambiguous"></i>
-
-                            <select class="form-select" formControlName="gender">
-
-                                <option selected disabled>
-                                    Select Gender
-                                </option>
-
-                                <option>Male</option>
-
-                                <option>Female</option>
-
-                                <option>Other</option>
-
+                    <div class="field select-field">
+                        <label for="gender">Gender</label>
+                        <div class="select-wrap">
+                            <select id="gender" formControlName="gender">
+                                <option value="" disabled selected hidden></option>
+                                <option value="female">Female</option>
+                                <option value="male">Male</option>
+                                <option value="other">Other</option>
                             </select>
-
+                            <i class="bi bi-chevron-down chevron"></i>
                         </div>
-                         @if(registerForm.get('firstName')?.touched &&
-                        registerForm.get('firstName')?.hasError('required'))
+                        @if(getError('gender'))
                         {
+                        <small class="field-error">
 
-                        <div class="text-danger mt-1">
+                            {{getError('gender')}}
 
-                            Gender is required.
-
-                        </div>
-                    }
-
-                    </div>     
-
-                </div>
-
-                <!-- Address -->
-
-                <div class="mb-4">
-
-                    <label class="form-label">
-
-                        Address
-
-                    </label>
-
-                    <div class="input-box textarea-box">
-
-                        <i class="bi bi-geo-alt"></i>
-
-                        <textarea
-                            rows="3"
-                            class="form-control"
-                            formControlName="address"
-                            placeholder="Enter your address"></textarea>
-
+                        </small>
+                        }
                     </div>
-                     @if(registerForm.get('firstName')?.touched &&
-                        registerForm.get('firstName')?.hasError('required'))
-                        {
-
-                        <div class="text-danger mt-1">
-
-                            Address is required.
-
-                        </div>
-                    }
-
                 </div>
 
-                <!-- Password -->
+                <div class="field-row">
+                    <div class="field">
+                        <label for="dob">Date of Birth</label>
+                        <input id="dob" type="date" formControlName="dateOfBirth" />
 
-                <div class="row">
+                        @if(getError('gender'))
+                        {
+                        <small class="field-error">
 
-                    <div class="col-md-6 mb-4">
+                            {{getError('gender')}}
 
-                        <label class="form-label">
+                        </small>
+                        }
+                    </div>
+                </div>
 
-                            Password
+                <div class="field-row">
+                    <div class="field">
+                        <label for="address">Residential Address</label>
+                        <textarea id="address" autocomplete="street-address" formControlName="address"></textarea>
 
-                        </label>
+                        @if(getError('address'))
+                        {
+                        <small class="field-error">
 
-                        <div class="input-box">
+                            {{getError('address')}}
 
-                            <i class="bi bi-lock"></i>
+                        </small>
+                        }
+                    </div>
+                </div>
 
-                            <input
-                                type="password"
-                                class="form-control"
-                                formControlName="password"
-                                placeholder="Password">
-
-                            <span class="eye">
-
+                <div class="field-row two-col">
+                    <div class="field password-field">
+                        <label for="password">Password</label>
+                        <div class="boxed-password">
+                            <input id="password" formControlName="password"
+                                [type]="showPassword() ? 'text' : 'password'" autocomplete="new-password" />
+                            <button type="button" class="eye-btn" (click)="togglePassword()"
+                                aria-label="Toggle password visibility">
+                                @if(!showPassword()){
                                 <i class="bi bi-eye"></i>
-
-                            </span>
-
+                                }@else {
+                                <i class="bi bi-eye-slash"></i>
+                                }
+                            </button>
                         </div>
-                         @if(registerForm.get('firstName')?.touched &&
-                        registerForm.get('firstName')?.hasError('required'))
+                        @if(getError('password'))
                         {
+                        <small class="field-error">
 
-                        <div class="text-danger mt-1">
+                            {{getError('password')}}
 
-                            Password is required.
-
-                        </div>
-                    }
-
+                        </small>
+                        }
                     </div>
 
-                    <div class="col-md-6 mb-4">
-
-                        <label class="form-label">
-
-                            Confirm Password
-
-                        </label>
-
-                        <div class="input-box">
-
-                            <i class="bi bi-lock"></i>
-
-                            <input
-                                type="password"
-                                class="form-control"
-                                formControlName="confirmPassword"
-                                placeholder="Confirm Password">
-
-                            <span class="eye">
-
+                    <div class="field password-field">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="boxed-password">
+                            <input id="confirmPassword" formControlName="confirmPassword"
+                                [type]="showConfirmPassword() ? 'text' : 'password'" autocomplete="new-password" />
+                            <button type="button" class="eye-btn" (click)="toggleConfirmPassword()"
+                                aria-label="Toggle confirm password visibility">
+                                @if(!showConfirmPassword()){
                                 <i class="bi bi-eye"></i>
-
-                            </span>
-
+                                }@else {
+                                <i class="bi bi-eye-slash"></i>
+                                }
+                            </button>
                         </div>
-                         @if(registerForm.get('firstName')?.touched &&
-                        registerForm.get('firstName')?.hasError('required'))
+                        @if(registerForm.get('confirmPassword')?.touched &&
+                        !passwordsMatch())
                         {
 
-                        <div class="text-danger mt-1">
+                        <small class="field-error">
 
-                            Confirm Password is required.
+                            Passwords do not match.
 
-                        </div>
-                    }
+                        </small>
 
+                        }
                     </div>
-
                 </div>
 
-                <!-- Terms -->
+                <label class="agree-row">
+                    <span class="radio" [class.checked]="agreedToTerms()" (click)="toggleAgree()"></span>
+                    <span>
+                        I agree to the <a href="#" class="terms-link">Terms &amp; Conditions</a> and
+                        <a href="#" class="terms-link">Provider Agreement</a>.
+                    </span>
+                </label>
 
-                <div class="form-check mb-4">
+                @if(errorMessage){
 
-                    <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="terms">
-
-                    <label
-                        class="form-check-label"
-                        for="terms">
-
-                        I accept the
-                        <a href="#">Terms of Use</a>
-                        &
-                        <a href="#">Privacy Policy</a>
-
-                    </label>
-
-                </div>
-                
-
-                <!-- Register Button -->
-
-                <button 
-                    type="submit"
-                    class="btn register-btn w-100"
-                    [disabled]="registerForm.invalid">
-
-                    <i class="bi bi-person-plus-fill me-2"></i>
-
-                    Register Now
-
-                </button>
-
-            </form>
-
-        </div>
-
-        <!-- ================= RIGHT SIDE ================= -->
-
-        <div class="image-section">
-
-            <img
-                src="/patient-register.png"
-                alt="PatientRegistration">
-
-            <div class="features">
-
-                <div class="feature">
-
-                    <i class="bi bi-shield-check"></i>
-
-                    <div>
-
-                        <h6>Secure</h6>
-
-                        <span>Your Data</span>
-
-                    </div>
-
+                <div class="alert-error">
+                    {{errorMessage}}
                 </div>
 
-                <div class="feature">
+                }
+                <button type="submit" class="btn-register"
+                    [disabled]="registerForm.invalid || !agreedToTerms()">Register as Patient</button>
 
-                    <i class="bi bi-clock-history"></i>
-
-                    <div>
-
-                        <h6>Quick</h6>
-
-                        <span>Registration</span>
-
-                    </div>
-
-                </div>
-
-                <div class="feature">
-
-                    <i class="bi bi-heart-pulse"></i>
-
-                    <div>
-
-                        <h6>Better</h6>
-
-                        <span>Care</span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="register-link">
-
-                <p>
-
+                <p class="login-hint">
                     Already have an account?
-
-                    <a routerLink="/login">
-
-                        Login
-
+                    <a class="login-link" routerLink="/login/patient">
+                        Log in
                     </a>
-
                 </p>
-
-            </div>
-
-        </div>
-
+            </form>
+        </section>
     </div>
-
 </div>

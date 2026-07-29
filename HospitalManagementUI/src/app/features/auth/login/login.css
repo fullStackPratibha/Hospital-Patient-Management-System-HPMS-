@@ -233,3 +233,15 @@
     display:block;
     object-fit:cover;
 }
+
+/* ----------- Show Error Messages---------- */
+.alert-error{
+    margin-top:16px;
+    padding:12px;
+    background:#fdecec;
+    color:#c62828;
+    border:1px solid #ef9a9a;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:500;
+}

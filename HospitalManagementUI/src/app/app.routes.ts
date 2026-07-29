@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
 import { PatientRegister } from './features/auth/patient-register/patient-register';
+import { DoctorRegister } from './features/auth/doctor-register/doctor-register';
 import { LoginComponent } from './features/auth/login/login';
 import { LandingPage } from './features/landing/landing';
+
 
 export const routes: Routes = [
   {
@@ -26,5 +28,9 @@ export const routes: Routes = [
   {
     path:'patient-register',
     component:PatientRegister
+  },
+  {
+    path:'doctor-register',
+    component:DoctorRegister
   }
 ];

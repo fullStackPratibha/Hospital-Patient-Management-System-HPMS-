@@ -1,18 +1,35 @@
-import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RoleTabsComponent } from '../../../shared/role-tabs';
+import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RegisterRequest } from '../../../core/models/auth/register-request'
 import { Auth } from '../../../core/services/auth';
 
 @Component({
-  selector: 'app-register',
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  selector: 'app-register-patient',
+  standalone: true,
+  imports: [CommonModule, RoleTabsComponent,RouterLink,ReactiveFormsModule],
   templateUrl: './patient-register.html',
-  styleUrl: './patient-register.css',
+  styleUrl: './patient-register.css'
 })
 
 export class PatientRegister {
+  showPassword = signal(false);
+  showConfirmPassword = signal(false);
+  agreedToTerms = signal(false);
+
+  togglePassword(): void {
+    this.showPassword.update((v) => !v);
+  }
+
+  toggleConfirmPassword(): void {
+    this.showConfirmPassword.update((v) => !v);
+  }
+
+  toggleAgree(): void {
+    this.agreedToTerms.update((v) => !v);
+  }
 
   errorMessage = '';
   private fb = inject(FormBuilder);
@@ -30,29 +47,64 @@ export class PatientRegister {
     address: ['', [Validators.required]]
   });
 
- 
+  onSubmit(): void {
 
-  onSubmit():void{
-    alert("Submitted")
-    const request = this.registerForm.getRawValue() as RegisterRequest;
+  this.errorMessage = '';
 
-    this.auth.register(request).subscribe({
-      next: (response:any) => {
-        console.log("Registration Success");
-        console.log(response);
-      },
-
-      error: (error:any) => {
-        if (error.status === 409) {
-          console.log(error);
-
-          console.log(error.error);
-
-          console.log(error.error.Message);
-          this.errorMessage = error.error.Message;   
-        }
-
-      }
-    });
+  if (this.registerForm.invalid) {
+    this.registerForm.markAllAsTouched();
+    return;
   }
+
+  const request = this.registerForm.getRawValue() as RegisterRequest;
+  this.auth.register(request).subscribe({
+    next: (response:any) => {
+      alert("Registration Successful");
+      console.log(response);
+    },
+
+    error: (error:any) => {
+      if(error.status === 409){
+        this.errorMessage = error.error.message;
+      }
+
+    }
+
+  });
+}
+
+  getError(controlName: string): string {
+
+  const control = this.registerForm.get(controlName);
+
+      if (!control || !control.touched) {
+        return '';
+      }
+
+      if (control.hasError('required')) {
+        return 'This field is required.';
+      }
+
+  if (control.hasError('email')) {
+    return 'Please enter a valid email address.';
+  }
+
+  if (control.hasError('pattern') && controlName === 'phone') {
+    return 'Phone number must contain 10 digits.';
+  }
+
+  if (control.hasError('minlength')) {
+    return 'Minimum 8 characters are required.';
+  }
+
+  return '';
+}
+
+passwordsMatch(): boolean {
+
+  return this.registerForm.value.password ===
+         this.registerForm.value.confirmPassword;
+
+}
+
 }

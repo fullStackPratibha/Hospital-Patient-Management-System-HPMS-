@@ -1,1 +1,118 @@
-<p>doctor-register works!</p>
+<div class="page">
+  <div class="content-grid">
+    <!-- LEFT: illustration + caption below (no overlay, no gradient) -->
+     <section class="showcase" aria-hidden="true">
+        <div class="showcase-image"> <img src="/doctors-register.png" alt="Doctor Registration"></div>
+    </section>
+
+    <!-- RIGHT: doctor registration form -->
+    <section class="form-card">
+      <app-role-tabs active="doctor"></app-role-tabs>
+
+      <h1>Create Doctor Account</h1>
+      <p class="form-sub">Join the CarePlus provider network.</p>
+
+      <form class="register-form" (submit)="$event.preventDefault()">
+        <div class="field-row two-col">
+          <div class="field">
+            <label for="firstName">First Name</label>
+            <input id="firstName" type="text" autocomplete="given-name" />
+          </div>
+          <div class="field">
+            <label for="lastName">Last Name</label>
+            <input id="lastName" type="text" autocomplete="family-name" />
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field">
+            <label for="email">Email Address</label>
+            <input id="email" type="email" autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="mobile">Mobile Number</label>
+            <input id="mobile" type="tel" autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field select-field">
+            <label for="gender">Gender</label>
+            <div class="select-wrap">
+              <select id="gender">
+                <option value="" disabled selected hidden></option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="other">Other</option>
+              </select>
+              <i class="bi bi-chevron-down chevron"></i>
+            </div>
+          </div>
+          <div class="field">
+            <label for="specialization">Specialization</label>
+            <input id="specialization" type="text" />
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field">
+            <label for="experience">Years of Experience</label>
+            <input id="experience" type="number" min="0" />
+          </div>
+          <div class="field">
+            <label for="license">Medical License Number</label>
+            <input id="license" type="text" />
+          </div>
+        </div>
+
+        <div class="field-row two-col">
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="boxed-password">
+              <input id="password" [type]="showPassword() ? 'text' : 'password'" autocomplete="new-password" />
+              <button type="button" class="eye-btn" (click)="togglePassword()"
+                                aria-label="Toggle password visibility">
+                                @if(!showPassword()){
+                                <i class="bi bi-eye"></i>
+                                }@else {
+                                <i class="bi bi-eye-slash"></i>
+                                }
+                            </button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="boxed-password">
+              <input id="confirmPassword" [type]="showConfirmPassword() ? 'text' : 'password'" autocomplete="new-password" />
+              <button type="button" class="eye-btn" (click)="toggleConfirmPassword()"
+                                aria-label="Toggle confirm password visibility">
+                                @if(!showConfirmPassword()){
+                                <i class="bi bi-eye"></i>
+                                }@else {
+                                <i class="bi bi-eye-slash"></i>
+                                }
+                            </button>
+            </div>
+          </div>
+        </div>
+
+        <label class="agree-row">
+          <span class="radio" [class.checked]="agreedToTerms()" (click)="toggleAgree()"></span>
+          <span>
+            I agree to the <a href="#" class="terms-link">Terms &amp; Conditions</a> and
+            <a href="#" class="terms-link">Provider Agreement</a>.
+          </span>
+        </label>
+
+        <button type="submit" class="btn-register">Register as Doctor</button>
+
+            <p class="login-hint">
+            Already have an account?
+            <a class="login-link" routerLink="/login/doctor">
+                Log in
+            </a>
+            </p>        
+        </form>
+    </section>
+  </div>
+</div>
