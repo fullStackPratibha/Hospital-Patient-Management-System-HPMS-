@@ -32,7 +32,7 @@ export class LoginComponent {
   private fb = inject(FormBuilder);
   private auth = inject(Auth);
   private router = inject(Router);
-  errorMessage = '';
+  errorMessage = signal('');
 
   // UI relate logic
   private roleParam = toSignal(
@@ -84,7 +84,7 @@ export class LoginComponent {
 
 onSubmit(): void {
 
-  this.errorMessage = '';
+  this.errorMessage.set('');
 
   if (this.loginForm.invalid) {
     this.loginForm.markAllAsTouched();
@@ -95,33 +95,17 @@ onSubmit(): void {
 
   this.auth.login(request).subscribe({
     next: (response) => {
-      alert("Login Successful");
-      console.log(response);
-       localStorage.setItem(
-    'token',
-    response.data.token
-  );
 
-  localStorage.setItem(
-    'email',
-    response.data.email
-  );
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('email', response.data.email);
+      localStorage.setItem('role', response.data.role);
 
-  localStorage.setItem(
-    'role',
-    response.data.role
-  );
+      if(response.data.role === 'patient') {
+        this.router.navigate(['/patient/dashboard']);
+      }
     },
     error: (error) => {
-      console.log(error);
-       console.log("Status:", error.status);
-  console.log("Error Object:", error.error);
-
-  this.errorMessage =
-    error.error?.message ||
-    error.error?.Message ||
-    "Something went wrong.";
-    console.log(this.errorMessage)
+      this.errorMessage.set(error.error.Message);
     }
   });
    

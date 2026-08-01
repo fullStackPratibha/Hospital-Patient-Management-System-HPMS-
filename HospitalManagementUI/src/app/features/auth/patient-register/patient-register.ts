@@ -1,6 +1,6 @@
 import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RoleTabsComponent } from '../../../shared/role-tabs';
+import { RoleTabsComponent } from '../shared/role-tabs';
 import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RegisterRequest } from '../../../core/models/auth/register-request'
@@ -31,7 +31,7 @@ export class PatientRegister {
     this.agreedToTerms.update((v) => !v);
   }
 
-  errorMessage = '';
+  errorMessage = signal('');
   private fb = inject(FormBuilder);
   private auth = inject(Auth);
 
@@ -49,7 +49,7 @@ export class PatientRegister {
 
   onSubmit(): void {
 
-  this.errorMessage = '';
+  this.errorMessage.set('');
 
   if (this.registerForm.invalid) {
     this.registerForm.markAllAsTouched();
@@ -64,10 +64,7 @@ export class PatientRegister {
     },
 
     error: (error:any) => {
-      if(error.status === 409){
-        this.errorMessage = error.error.message;
-      }
-
+        this.errorMessage.set(error.error.Message);
     }
 
   });

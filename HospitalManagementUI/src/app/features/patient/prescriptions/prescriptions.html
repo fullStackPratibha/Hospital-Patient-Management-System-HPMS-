@@ -1,1 +1,85 @@
-<p>prescriptions works!</p>
+<app-topbar searchPlaceholder="Search medication..."></app-topbar>
+
+<div class="prescriptions">
+  <span class="eyebrow">Prescriptions</span>
+
+  <div class="page-head">
+    <div>
+      <h1>Your Medications</h1>
+      <p>Manage and track your active treatment plans.</p>
+    </div>
+    <div class="head-actions">
+      <button class="btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 9V4h12v5M6 18h12v-6H6v6zM6 14h12" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        Print Summary
+      </button>
+      <button class="btn-outline">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" stroke="#123ea8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Export PDF
+      </button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab" [class.active]="activeTab() === 'active'" (click)="selectTab('active')">Active Prescriptions</button>
+    <button class="tab" [class.active]="activeTab() === 'history'" (click)="selectTab('history')">Previous History</button>
+  </div>
+
+  <div class="rx-grid">
+    <div class="rx-card" *ngFor="let med of medications">
+      <div class="rx-head">
+        <span class="rx-thumb"></span>
+        <div class="rx-title-block">
+          <div class="rx-name-row">
+            <span class="rx-name">{{ med.name }}</span>
+            <span class="rx-badge" [ngClass]="'badge-' + med.badgeVariant">{{ med.badge }}</span>
+          </div>
+          <div class="rx-doctor">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="#8b93a8" stroke-width="1.6"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#8b93a8" stroke-width="1.6" stroke-linecap="round"/></svg>
+            {{ med.doctor }} • {{ med.department }}
+          </div>
+        </div>
+        <button class="kebab" aria-label="More options">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="1.6" fill="#8b93a8"/><circle cx="12" cy="12" r="1.6" fill="#8b93a8"/><circle cx="12" cy="19" r="1.6" fill="#8b93a8"/></svg>
+        </button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="rx-stats">
+        <div class="rx-stat" *ngFor="let stat of med.stats">
+          <div class="stat-label">{{ stat.label }}</div>
+          <div class="stat-value">{{ stat.value }}</div>
+        </div>
+      </div>
+
+      <div class="rx-footer">
+        <div class="footer-info">
+          <div class="footer-label">{{ med.footerLabel }}</div>
+          <div class="footer-value" [class.link-style]="med.footerLabel === 'Next Checkup'">{{ med.footerValue }}</div>
+          <div class="progress-track" *ngIf="med.progress as p">
+            <div class="progress-fill" [style.width.%]="p"></div>
+          </div>
+        </div>
+        <div class="footer-actions">
+          <a href="#" class="action-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" stroke="#123ea8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            PDF
+          </a>
+          <a href="#" class="action-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M6 9V4h12v5M6 18h12v-6H6v6zM6 14h12" stroke="#123ea8" stroke-width="1.7" stroke-linejoin="round"/></svg>
+            Print
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="rx-card rx-renewal">
+      <span class="renewal-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#123ea8" stroke-width="1.8"/><path d="M12 8v8M8 12h8" stroke="#123ea8" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </span>
+      <h3>Request Renewal</h3>
+      <p>Is your medication running low? Request a refill from your doctor.</p>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RoleTabsComponent } from '../../../shared/role-tabs';
+import { RoleTabsComponent } from '../shared/role-tabs';
 import { RouterLink } from '@angular/router';
 
 @Component({

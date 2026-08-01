@@ -1,1 +1,167 @@
-<p>profile works!</p>
+<div class="profile-page">
+  <div class="page-head">
+    <div>
+      <h1>Patient Profile</h1>
+      <p>Manage your personal and medical information securely.</p>
+    </div>
+    <div class="head-actions">
+      <button class="btn-outline">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="1.6" stroke="currentColor" stroke-width="1.8"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8"/></svg>
+        Change Password
+      </button>
+      <button class="btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 16.5V20h3.5L18 9.5l-3.5-3.5L4 16.5z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><path d="M13 5l3.5 3.5" stroke="#fff" stroke-width="1.8"/></svg>
+        Edit Profile
+      </button>
+    </div>
+  </div>
+
+  <div class="grid-top">
+    <div class="card identity-card">
+      <img class="avatar" [src]="patient.avatar" alt="{{ patient.name }}" />
+      <div class="identity-body">
+        <div class="identity-row">
+          <h2>{{ patient.name }}</h2>
+          <span class="id-badge">ID: {{ patient.id }}</span>
+        </div>
+        <p class="member-since">Member since {{ patient.memberSince }}</p>
+
+        <div class="contact-row">
+          <span class="contact-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#123ea8" stroke-width="1.7"/><path d="M4 7l8 6 8-6" stroke="#123ea8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            {{ patient.email }}
+          </span>
+          <span class="contact-chip">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6.5 4.5c1 0 2.4 2 2.4 3s-1.2 1.6-1.2 2.4c0 1.6 2.9 4.5 4.5 4.5.8 0 1.4-1.2 2.4-1.2s3 1.4 3 2.4c0 1.3-1.5 2.9-3 2.9-4 0-10-6-10-10 0-1.5 1.6-3 2.9-3z" stroke="#123ea8" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            {{ patient.phone }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card vitals-card">
+      <div class="card-title">
+        <span class="title-icon vitals-icon">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M3 12h4l2-6 4 12 2-6h6" stroke="#e0393e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        Medical Vitals
+      </div>
+
+      <div class="vitals-grid">
+        <div class="vital-box">
+          <div class="vital-label">BLOOD GROUP</div>
+          <div class="vital-value blood">{{ vitals.bloodGroup }}</div>
+        </div>
+        <div class="vital-box">
+          <div class="vital-label">ALLERGIES</div>
+          <div class="vital-value">{{ vitals.allergies }}</div>
+        </div>
+      </div>
+
+      <div class="vital-box wide">
+        <div class="vital-label">CHRONIC CONDITIONS</div>
+        <div class="pill-row">
+          <span class="pill" *ngFor="let condition of vitals.chronicConditions">{{ condition }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-bottom">
+    <div class="card">
+      <div class="card-title">
+        <span class="title-icon info-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 8.5V19a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8.5M4 8.5h16M4 8.5l1.5-3A1 1 0 0 1 6.4 5h11.2a1 1 0 0 1 .9.5l1.5 3M9 12h6" stroke="#123ea8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        Personal Information
+      </div>
+      <div class="divider"></div>
+
+      <div class="info-grid">
+        <div class="info-field">
+          <div class="info-label">DATE OF BIRTH</div>
+          <div class="info-value">{{ personal.dob }}</div>
+        </div>
+        <div class="info-field">
+          <div class="info-label">GENDER</div>
+          <div class="info-value">{{ personal.gender }}</div>
+        </div>
+      </div>
+
+      <div class="info-field">
+        <div class="info-label">RESIDENTIAL ADDRESS</div>
+        <div class="info-value" *ngFor="let line of personal.address">{{ line }}</div>
+      </div>
+
+      <div class="info-field">
+        <div class="info-label">LANGUAGE</div>
+        <div class="info-value">{{ personal.language }}</div>
+      </div>
+    </div>
+
+    <div class="col-stack">
+      <div class="card">
+        <div class="card-title">
+          <span class="title-icon contact-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#123ea8" stroke-width="1.7"/><circle cx="9" cy="11" r="2" stroke="#123ea8" stroke-width="1.5"/><path d="M6 16c0-1.7 1.3-3 3-3s3 1.3 3 3M14 9h4M14 13h4" stroke="#123ea8" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </span>
+          Emergency Contact
+        </div>
+
+        <div class="emergency-box">
+          <div>
+            <div class="emergency-name">{{ emergencyContact.name }}</div>
+            <div class="emergency-relation">{{ emergencyContact.relation }}</div>
+          </div>
+          <span class="call-btn">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M6.5 4.5c1 0 2.4 2 2.4 3s-1.2 1.6-1.2 2.4c0 1.6 2.9 4.5 4.5 4.5.8 0 1.4-1.2 2.4-1.2s3 1.4 3 2.4c0 1.3-1.5 2.9-3 2.9-4 0-10-6-10-10 0-1.5 1.6-3 2.9-3z" fill="#fff"/></svg>
+          </span>
+        </div>
+
+        <div class="phone-row">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="7" y="2.5" width="10" height="19" rx="2" stroke="#66728a" stroke-width="1.6"/><path d="M11 18.5h2" stroke="#66728a" stroke-width="1.6" stroke-linecap="round"/></svg>
+          {{ emergencyContact.phone }}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span class="title-icon insurance-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="#123ea8" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          </span>
+          Insurance Information
+        </div>
+
+        <div class="info-grid">
+          <div class="info-field">
+            <div class="info-label">PROVIDER</div>
+            <div class="info-value">{{ insurance.provider }}</div>
+          </div>
+          <div class="info-field">
+            <div class="info-label">POLICY NUMBER</div>
+            <div class="info-value">{{ insurance.policyNumber }}</div>
+          </div>
+        </div>
+
+        <div class="status-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="#123ea8" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#123ea8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Status: {{ insurance.status }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-meta">
+    <div class="meta-left">
+      <span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="1.6" stroke="#1f9d55" stroke-width="1.7"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#1f9d55" stroke-width="1.7"/></svg>
+        HIPAA Compliant
+      </span>
+      <span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#1f9d55" stroke-width="1.7"/><path d="M9 12l2 2 4-4" stroke="#1f9d55" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        256-bit Encrypted
+      </span>
+    </div>
+    <span class="meta-right">Last updated: {{ lastUpdated }}</span>
+  </div>
+</div>

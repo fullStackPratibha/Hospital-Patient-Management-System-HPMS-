@@ -1,1 +1,123 @@
-<p>history works!</p>
+<app-topbar searchPlaceholder="Search events, diagnoses, or reports..."></app-topbar>
+
+<div class="history-page">
+  <div class="page-head">
+    <div>
+      <h1>Medical History</h1>
+      <p>A comprehensive chronological record of your health journey.</p>
+    </div>
+
+    <div class="head-controls">
+      <div class="segmented">
+        <button class="seg-btn" [class.active]="view() === 'timeline'" (click)="setView('timeline')">Timeline</button>
+        <button class="seg-btn" [class.active]="view() === 'documents'" (click)="setView('documents')">Documents</button>
+      </div>
+      <button class="filter-btn">All Years
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#14203a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="filter-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 5h16M7 12h10M10 19h4" stroke="#14203a" stroke-width="1.8" stroke-linecap="round"/></svg>
+        All Types
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#14203a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="history-grid">
+    <!-- LEFT: TIMELINE -->
+    <div class="timeline">
+      <ng-container *ngFor="let group of months; let gi = index">
+        <div class="month-row">
+          <span class="track-spacer"></span>
+          <h3 class="month-label">{{ group.month }}</h3>
+        </div>
+
+        <div class="timeline-item" *ngFor="let entry of group.entries">
+          <span class="track-dot" [ngClass]="'dot-' + entry.type"></span>
+
+          <div class="entry-card">
+            <div class="entry-top">
+              <span class="entry-tag" [ngClass]="'tag-' + entry.type">{{ entry.tag }}</span>
+              <span class="entry-date">{{ entry.date }}</span>
+            </div>
+            <h4 class="entry-title">{{ entry.title }}</h4>
+            <p class="entry-desc">{{ entry.description }}</p>
+
+            <div class="physician-box" *ngIf="entry.physician">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="#123ea8" stroke-width="1.6"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#123ea8" stroke-width="1.6" stroke-linecap="round"/><path d="M8 8l1.5 1.5L13 6" stroke="#123ea8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div>
+                <div class="physician-label">Attending Physician</div>
+                <div class="physician-value">{{ entry.physician }}</div>
+              </div>
+            </div>
+
+            <div class="pill-row" *ngIf="entry.pills">
+              <span class="pill" *ngFor="let pill of entry.pills">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#5c6478" stroke-width="1.6"/><path d="M9 12l2 2 4-4" stroke="#5c6478" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                {{ pill }}
+              </span>
+            </div>
+
+            <div class="lab-stats" *ngIf="entry.stats">
+              <div class="lab-stat" *ngFor="let stat of entry.stats">
+                <div class="lab-label">{{ stat.label }}</div>
+                <div class="lab-value" [class.danger]="stat.danger">{{ stat.value }}</div>
+              </div>
+            </div>
+
+            <button class="view-report-btn" *ngIf="entry.stats">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" stroke="#123ea8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              View Full Report
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- RIGHT: SIDEBAR -->
+    <div class="history-side">
+      <div class="card">
+        <h2>Health Snapshot</h2>
+        <div class="snapshot-row">
+          <span>Total Visits (2024)</span>
+          <strong>{{ healthSnapshot.totalVisits }}</strong>
+        </div>
+        <div class="snapshot-row">
+          <span>Pending Lab Results</span>
+          <span class="pending-badge">{{ healthSnapshot.pendingLabResults }} New</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" [style.width.%]="healthSnapshot.treatmentProgress"></div>
+        </div>
+        <p class="progress-caption">Treatment plan is {{ healthSnapshot.treatmentProgress }}% complete.</p>
+      </div>
+
+      <div class="card">
+        <h2>Recent Documents</h2>
+        <div class="doc-item" *ngFor="let doc of recentDocuments">
+          <span class="doc-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 3.5h8l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1z" stroke="#123ea8" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </span>
+          <div class="doc-text">
+            <div class="doc-name">{{ doc.name }}</div>
+            <div class="doc-meta">{{ doc.meta }}</div>
+          </div>
+          <button class="doc-download" aria-label="Download">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2" stroke="#123ea8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <a href="#" class="view-archive">View Archive ({{ archiveCount }})</a>
+      </div>
+
+      <div class="care-advice">
+        <h2>Care Advice</h2>
+        <p>Based on your recent lab results, increasing your dietary Vitamin D intake is recommended.</p>
+        <a href="#" class="diet-link">Read Diet Guide</a>
+      </div>
+    </div>
+  </div>
+
+  <button class="fab" aria-label="Add entry">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+  </button>
+</div>

@@ -1,1 +1,115 @@
-<p>appointments works!</p>
+<app-topbar [showSearch]="false"></app-topbar>
+
+<div class="appointments-page">
+  <div class="page-head">
+    <div>
+      <h1>Appointments</h1>
+      <p>Manage and schedule your medical consultations.</p>
+    </div>
+    <button class="btn-primary">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+      Book Appointment
+    </button>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#8b93a8" stroke-width="1.8"/><path d="M20 20l-3.5-3.5" stroke="#8b93a8" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <input type="text" placeholder="Search doctor, specialty, or hospital..." />
+    </div>
+    <button class="chip-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15" rx="2" stroke="#14203a" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="#14203a" stroke-width="1.7" stroke-linecap="round"/></svg>
+      This Month
+    </button>
+    <button class="chip-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M7 12h10M10 18h4" stroke="#14203a" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Filters
+    </button>
+    <div class="view-toggle">
+      <button class="view-btn active" aria-label="Grid view">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="13" y="3" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="3" y="13" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.7"/><rect x="13" y="13" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.7"/></svg>
+      </button>
+      <button class="view-btn" aria-label="List view">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="appointments-grid">
+    <div class="card calendar-card">
+      <div class="calendar-head">
+        <div class="calendar-title">
+          <button class="nav-arrow" aria-label="Previous month">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#14203a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <h2>October 2023</h2>
+          <button class="nav-arrow" aria-label="Next month">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#14203a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="view-switch">
+          <span class="switch-opt active">Month</span>
+          <span class="switch-opt">Weeks</span>
+        </div>
+      </div>
+
+      <div class="calendar-grid">
+        <div class="cal-dow" *ngFor="let d of weekdays">{{ d }}</div>
+        <div class="cal-cell" *ngFor="let cell of calendarDays" [class.dim]="cell.dim">
+          <span class="cal-day-num">{{ cell.day }}</span>
+          <span class="cal-event" *ngIf="cell.event" [ngClass]="'event-' + cell.event.variant">{{ cell.event.time }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col">
+      <div class="card next-appt-card">
+        <h2>Next Appointment</h2>
+        <button class="kebab" aria-label="More options">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="1.6" fill="#8b93a8"/><circle cx="12" cy="12" r="1.6" fill="#8b93a8"/><circle cx="12" cy="19" r="1.6" fill="#8b93a8"/></svg>
+        </button>
+
+        <div class="doctor-row">
+          <img [src]="nextAppointment.avatar" alt="{{ nextAppointment.doctor }}" />
+          <div>
+            <div class="doctor-name">{{ nextAppointment.doctor }}</div>
+            <div class="doctor-specialty">{{ nextAppointment.specialty }}</div>
+          </div>
+        </div>
+
+        <div class="appt-meta">
+          <div class="meta-row">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15" rx="2" stroke="#123ea8" stroke-width="1.7"/><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="#123ea8" stroke-width="1.7" stroke-linecap="round"/></svg>
+            {{ nextAppointment.date }}
+          </div>
+          <div class="meta-row">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="14" height="12" rx="2" stroke="#123ea8" stroke-width="1.7"/><path d="M16 10l6-3v10l-6-3" stroke="#123ea8" stroke-width="1.7" stroke-linejoin="round"/></svg>
+            {{ nextAppointment.location }}
+          </div>
+        </div>
+
+        <span class="status-pill">{{ nextAppointment.status }}</span>
+
+        <div class="appt-actions">
+          <button class="btn-outline">Reschedule</button>
+          <button class="btn-danger">Cancel</button>
+        </div>
+      </div>
+
+      <div class="card consultations-card">
+        <h2>Recent Consultations</h2>
+        <a href="#" class="consult-item" *ngFor="let c of consultations">
+          <img [src]="c.avatar" alt="{{ c.name }}" />
+          <div class="consult-text">
+            <div class="consult-name">{{ c.name }}</div>
+            <div class="consult-meta">{{ c.specialty }} • {{ c.date }}</div>
+          </div>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#8b93a8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#" class="view-all">View All History
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M9 7h8v8" stroke="#123ea8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

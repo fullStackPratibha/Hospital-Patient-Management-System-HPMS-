@@ -3,6 +3,12 @@ import { PatientRegister } from './features/auth/patient-register/patient-regist
 import { DoctorRegister } from './features/auth/doctor-register/doctor-register';
 import { LoginComponent } from './features/auth/login/login';
 import { LandingPage } from './features/landing/landing';
+import { PatientLayout } from './features/patient/layouts/patient-layout/patient-layout';
+import { Dashboard } from './features/patient/dashboard/dashboard';
+import { Appointments } from './features/patient/appointments/appointments';
+import { Prescriptions } from './features/patient/prescriptions/prescriptions';
+import { MedicalHistory } from './features/patient/history/history';
+import { Profile } from './features/patient/profile/profile';
 
 
 export const routes: Routes = [
@@ -32,5 +38,37 @@ export const routes: Routes = [
   {
     path:'doctor-register',
     component:DoctorRegister
-  }
+  },
+  {
+  path: 'patient',
+  component: PatientLayout,
+  children: [
+    {
+      path: 'dashboard',
+      component: Dashboard
+    },
+    {
+      path: 'appointments',
+      component: Appointments
+    },
+    {
+      path: 'history',
+      component: MedicalHistory
+    },
+    {
+      path: 'prescriptions',
+      component: Prescriptions
+    },
+    {
+      path: 'profile',
+      component: Profile
+    },
+    {
+      path: '',
+      redirectTo: 'dashboard',
+      pathMatch: 'full'
+    }
+
+  ]
+}
 ];

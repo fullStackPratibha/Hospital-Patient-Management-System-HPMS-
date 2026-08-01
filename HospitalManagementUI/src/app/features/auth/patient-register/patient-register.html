@@ -98,11 +98,11 @@
                         <label for="dob">Date of Birth</label>
                         <input id="dob" type="date" formControlName="dateOfBirth" />
 
-                        @if(getError('gender'))
+                        @if(getError('dateOfBirth'))
                         {
                         <small class="field-error">
 
-                            {{getError('gender')}}
+                            {{getError('dateOfBirth')}}
 
                         </small>
                         }
@@ -186,10 +186,9 @@
                     </span>
                 </label>
 
-                @if(errorMessage){
-
+                @if(errorMessage()){
                 <div class="alert-error">
-                    {{errorMessage}}
+                    {{errorMessage()}}
                 </div>
 
                 }
