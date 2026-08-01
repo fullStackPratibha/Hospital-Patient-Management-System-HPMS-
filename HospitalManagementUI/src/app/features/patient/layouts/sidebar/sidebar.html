@@ -19,23 +19,21 @@
         class="nav-item"
       >
         <span class="nav-icon">
-          <svg *ngIf="item.icon === 'grid'" width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="3" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.8"/><rect x="3" y="13" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="13" width="8" height="8" rx="1.6" stroke="currentColor" stroke-width="1.8"/></svg>
-          <svg *ngIf="item.icon === 'calendar'" width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 9.5h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          <svg *ngIf="item.icon === 'file'" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 3.5h8l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-16a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12h6M9 16h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          <svg *ngIf="item.icon === 'history'" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <svg *ngIf="item.icon === 'user'" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 20c0-4.1 3.4-7.4 7.5-7.4s7.5 3.3 7.5 7.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          <svg *ngIf="item.icon === 'gear'" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 13.5a7.5 7.5 0 0 0 0-3l1.8-1.4-2-3.4-2.1.7a7.6 7.6 0 0 0-2.6-1.5L14 2.5h-4l-.5 2.4a7.6 7.6 0 0 0-2.6 1.5l-2.1-.7-2 3.4L4.6 10.5a7.5 7.5 0 0 0 0 3L2.8 15l2 3.4 2.1-.7a7.6 7.6 0 0 0 2.6 1.5l.5 2.3h4l.5-2.3a7.6 7.6 0 0 0 2.6-1.5l2.1.7 2-3.4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-        </span>
+  <i *ngIf="item.icon === 'grid'" class="bi bi-grid"></i>
+  <i *ngIf="item.icon === 'calendar'" class="bi bi-calendar3"></i>
+  <i *ngIf="item.icon === 'file'" class="bi bi-file-earmark-medical"></i>
+  <i *ngIf="item.icon === 'history'" class="bi bi-clock-history"></i>
+  <i *ngIf="item.icon === 'user'" class="bi bi-person-circle"></i>
+  <i *ngIf="item.icon === 'gear'" class="bi bi-gear"></i>
+
+</span>
         {{ item.label }}
       </a>
     </nav>
   </div>
 
   <button type="button" class="logout-btn" (click)="logout()">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path d="M9 5H6a1.5 1.5 0 0 0-1.5 1.5v11A1.5 1.5 0 0 0 6 19h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M15 15.5 19.5 12 15 8.5M19.5 12H9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
+    <i class="bi bi-box-arrow-right"></i>
     Logout
   </button>
 </aside>

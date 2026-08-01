@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Topbar } from '../layouts/topbar/topbar';
 
 interface Medication {
   name: string;
@@ -17,7 +16,7 @@ interface Medication {
 @Component({
   selector: 'app-prescriptions',
   standalone: true,
-  imports: [CommonModule, Topbar],
+  imports: [CommonModule],
   templateUrl: './prescriptions.html',
   styleUrl: './prescriptions.css'
 })

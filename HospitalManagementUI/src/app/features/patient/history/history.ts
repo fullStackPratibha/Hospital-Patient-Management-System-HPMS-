@@ -1,7 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Topbar } from '../layouts/topbar/topbar';
-
 
 type EntryType = 'diagnosis' | 'treatment' | 'lab';
 
@@ -29,7 +27,7 @@ interface RecentDocument {
 @Component({
   selector: 'app-medical-history',
   standalone: true,
-  imports: [CommonModule, Topbar],
+  imports: [CommonModule],
   templateUrl: './history.html',
   styleUrl: './history.css'
 })

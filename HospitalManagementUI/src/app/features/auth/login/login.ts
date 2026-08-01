@@ -14,6 +14,7 @@ interface RoleTab {
   label: string;
 }
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -91,24 +92,57 @@ onSubmit(): void {
     return;
   }
 
+
+  // Selected role from UI tab
+  const selectedRole = this.role();
+
+  // Doctor/Admin temporary block
+  if(selectedRole !== 'patient') {
+    this.errorMessage.set(
+      `${this.roleLabel()} login will be available soon`
+    );
+    return;
+  }
+
   const request = this.loginForm.getRawValue() as LoginRequest;
 
   this.auth.login(request).subscribe({
     next: (response) => {
+      const apiRole = response.data.role.toLowerCase();
+
+      // Safety check:
+      // UI Patient hai but API Patient nahi bhej rahi
+      if(apiRole !== selectedRole) {
+        this.errorMessage.set(
+          'Invalid login role'
+        );
+        return;
+      }
 
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('email', response.data.email);
-      localStorage.setItem('role', response.data.role);
+      localStorage.setItem('email',response.data.email);
+      localStorage.setItem('role', apiRole);
+      
+      console.log(
+  "Token Expired:",
+  this.auth.isTokenExpired()
+);
 
-      if(response.data.role === 'patient') {
-        this.router.navigate(['/patient/dashboard']);
-      }
+
+console.log(
+  "Login Status:",
+  this.auth.isLoggedIn()
+);
+
+      this.router.navigate([
+        '/patient/dashboard'
+      ]);
     },
     error: (error) => {
-      this.errorMessage.set(error.error.Message);
+      this.errorMessage.set(
+        error.error.Message
+      );
     }
   });
-   
-
 }
 }

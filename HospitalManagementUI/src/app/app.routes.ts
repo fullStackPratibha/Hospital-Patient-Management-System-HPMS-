@@ -9,14 +9,11 @@ import { Appointments } from './features/patient/appointments/appointments';
 import { Prescriptions } from './features/patient/prescriptions/prescriptions';
 import { MedicalHistory } from './features/patient/history/history';
 import { Profile } from './features/patient/profile/profile';
+import { authGuard } from './core/guards/auth-guard';
+import { roleGuard } from './core/guards/role-guard';
 
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo:'LandingPage',
-    pathMatch:'full'
-  },
   {
     path:'',
     component:LandingPage
@@ -42,6 +39,7 @@ export const routes: Routes = [
   {
   path: 'patient',
   component: PatientLayout,
+  canActivate: [authGuard, roleGuard(['patient'])],
   children: [
     {
       path: 'dashboard',

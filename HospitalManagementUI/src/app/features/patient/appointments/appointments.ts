@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Topbar } from '../layouts/topbar/topbar';
 
 interface CalendarDay {
   day: number;
@@ -18,7 +17,7 @@ interface Consultation {
 @Component({
   selector: 'app-appointments',
   standalone: true,
-  imports: [CommonModule, Topbar],
+  imports: [CommonModule],
   templateUrl: './appointments.html',
   styleUrl: './appointments.css'
 })
