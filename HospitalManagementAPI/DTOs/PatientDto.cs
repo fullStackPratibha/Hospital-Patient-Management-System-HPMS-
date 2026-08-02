@@ -1,3 +1,5 @@
+using HospitalManagementAPI.Enums;
+
 namespace HospitalManagementAPI.DTOs;
 
 public class PatientDto
@@ -8,5 +10,5 @@ public class PatientDto
 
     public string Address { get; set; } = string.Empty;
 
-     public string Gender { get; set; } = string.Empty;
+     public GenderType Gender { get; set; }
 }

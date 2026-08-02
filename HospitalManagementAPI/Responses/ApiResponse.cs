@@ -1,18 +1,18 @@
 namespace HospitalManagementAPI.Response;
 public class ApiResponse<T>
 {
-    public bool Success { get; set; }
-    public int StatusCode { get; set; }
-    public string Message { get; set; } = string.Empty;
+    public bool success { get; set; }
+    public int statusCode { get; set; }
+    public string message { get; set; } = string.Empty;
 
-    public T? Data {get; set;}
+    public T? data {get; set;}
 
     public ApiResponse(bool success, int statusCode, string message, T?data)
     {
-        Success = success;
-        StatusCode = statusCode;
-        Message = message;
-        Data = data;
+        this.success = success;
+        this.statusCode = statusCode;
+        this.message = message;
+        this.data = data;
     }
 
 }

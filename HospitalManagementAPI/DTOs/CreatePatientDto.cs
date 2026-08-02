@@ -1,3 +1,4 @@
+using HospitalManagementAPI.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace HospitalManagementAPI.DTOs;
@@ -14,7 +15,7 @@ public class CreatePatientDto
     public DateTime DateOfBirth { get; set; }
 
     [Required(ErrorMessage = "Gender is required.")]
-    public string Gender { get; set; } = string.Empty;
+    public GenderType Gender { get; set; }
 
     [Required(ErrorMessage = "Phone number is required.")]
     [Phone]

@@ -2,9 +2,11 @@ using HospitalManagementAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using HospitalManagementAPI.DTOs;
 using HospitalManagementAPI.Response;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HospitalManagementAPI.Controllers;
 
+[Authorize(Roles = "Patient")]
 [ApiController]
 [Route("api/[controller]")]
 public class PatientController : ControllerBase
@@ -33,7 +35,7 @@ public class PatientController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreatePatient(CreatePatientDto dto)
+    public async Task<IActionResult> CreatePatient([FromBody]CreatePatientDto dto)
     {
         _logger.LogInformation("Creating patient with email {Email}",dto.Email);
         var patient = await _patientService.CreateAsync(dto);
@@ -51,8 +53,8 @@ public class PatientController : ControllerBase
             response);
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetPatientById(int id)
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetPatientById([FromRoute]int id)
     {
         _logger.LogInformation($"Fetching patient with Id {id}");
         var patients = await _patientService.GetByIdAsync(id);
@@ -68,8 +70,8 @@ public class PatientController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdatePatient(int id, UpdatePatientDto dto)
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdatePatient([FromRoute]int id, [FromBody] UpdatePatientDto dto)
     {
         _logger.LogInformation("Updating patient {Id}", id);
         bool result = await _patientService.UpdateAsync(id, dto);
@@ -86,8 +88,8 @@ public class PatientController : ControllerBase
         return Ok(response);
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeletePatient(int id)
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeletePatient([FromRoute]int id)
     {
         _logger.LogInformation("Deleting patient {Id}", id);
         bool result = await _patientService.DeleteAsync(id);
