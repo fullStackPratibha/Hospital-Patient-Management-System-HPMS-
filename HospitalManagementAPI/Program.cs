@@ -11,6 +11,7 @@ using HospitalManagementAPI.Mappings;
 using HospitalManagementAPI.Middleware;
 using HospitalManagementAPI.Helpers;
 using HospitalManagementAPI.Configurations;
+using System.Text.Json.Serialization;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,13 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Host.UseSerilog();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(
+            new System.Text.Json.Serialization.JsonStringEnumConverter());
+    });
 
 
 builder.Services.AddDbContext<AppDbContext>(options=>

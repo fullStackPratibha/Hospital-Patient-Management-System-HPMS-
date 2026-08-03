@@ -21,9 +21,6 @@ public class CreatePatientDto
     [Phone]
     public string PhoneNumber { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Email is required.")  ]
-    [EmailAddress]
-    public string Email { get; set; } = string.Empty;
     
     [Required(ErrorMessage = "Address is required.")]
     [StringLength(200, ErrorMessage = "Address cannot exceed 200 characters.")]

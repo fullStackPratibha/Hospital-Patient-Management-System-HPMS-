@@ -37,7 +37,7 @@ public class PatientController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreatePatient([FromBody]CreatePatientDto dto)
     {
-        _logger.LogInformation("Creating patient with email {Email}",dto.Email);
+        _logger.LogInformation("Creating patient with PhoneNumber {PhoneNumber}",dto.PhoneNumber);
         var patient = await _patientService.CreateAsync(dto);
         _logger.LogInformation("Patient created successfully.");
 

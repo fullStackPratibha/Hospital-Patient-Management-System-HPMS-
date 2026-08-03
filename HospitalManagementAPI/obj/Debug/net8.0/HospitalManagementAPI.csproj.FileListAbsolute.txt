@@ -166,3 +166,4 @@ C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\Hospita
 C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\HospitalManagementAPI\bin\Debug\net8.0\System.Text.Encodings.Web.dll
 C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\HospitalManagementAPI\bin\Debug\net8.0\System.Text.Json.dll
 C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\HospitalManagementAPI\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\HospitalManagementAPI\bin\Debug\net8.0\package-lock.json

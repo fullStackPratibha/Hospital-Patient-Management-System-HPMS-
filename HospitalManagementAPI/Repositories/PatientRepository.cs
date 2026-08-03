@@ -32,14 +32,13 @@ namespace HospitalManagementAPI.Repositories;
             return await _context.Patients.AsNoTracking().Where(p=>p.Id == id && !p.IsDeleted).FirstOrDefaultAsync();
         }
 
-        public async Task<Patient?>  GetByEmailOrPhoneAsync(string email, string phoneNumber)
-        {
-            return await _context.Patients.FirstOrDefaultAsync(p => 
-            p.Email == email || 
-            p.PhoneNumber == phoneNumber);
-        }
+    public async Task<Patient?> GetByPhoneAsync(string phoneNumber)
+    {
+        return await _context.Patients
+            .FirstOrDefaultAsync(p => p.PhoneNumber == phoneNumber);
+    }
 
-        public async Task UpdateAsync(Patient patient)
+    public async Task UpdateAsync(Patient patient)
         {
             _context.Patients.Update(patient);
 
