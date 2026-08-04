@@ -14,6 +14,7 @@ export class DoctorRegister {
   showPassword = signal(false);
   showConfirmPassword = signal(false);
   agreedToTerms = signal(false);
+  errorMessage = signal('Doactor registration feature will be available soon.');
 
   togglePassword(): void {
     this.showPassword.update((v) => !v);
@@ -26,4 +27,5 @@ export class DoctorRegister {
   toggleAgree(): void {
     this.agreedToTerms.update((v) => !v);
   }
+  
 }

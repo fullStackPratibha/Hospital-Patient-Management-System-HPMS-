@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component,inject,signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Topbar } from '../layouts/topbar/topbar';
+import { Patient } from '../../../core/services/patient';
+import {PatientState} from '../../../core/services/patient-state';
 
 
 interface StatCard {
@@ -35,8 +37,8 @@ interface Prescription {
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
+
 export class Dashboard {
-  patientName = 'Alexander';
 
   stats: StatCard[] = [
     { icon: 'heart', label: 'Heart Rate', value: '72', unit: 'bpm', trend: '2%', trendDirection: 'up', trendColor: 'green' },
@@ -65,4 +67,18 @@ export class Dashboard {
       actionLabel: 'Refill Now'
     }
   ];
+
+  private patientState = inject(PatientState);
+
+ patientProfile =
+ this.patientState.patient;
+
+
+isLoading =
+ this.patientState.loading;
+
+
+errorMessage =
+ this.patientState.error;
+  
 }

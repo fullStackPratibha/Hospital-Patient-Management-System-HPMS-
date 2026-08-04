@@ -11,6 +11,7 @@ import { MedicalHistory } from './features/patient/history/history';
 import { Profile } from './features/patient/profile/profile';
 import { authGuard } from './core/guards/auth-guard';
 import { roleGuard } from './core/guards/role-guard';
+import { ForgotPassword } from './features/auth/forgot-password/forgot-password';
 
 
 export const routes: Routes = [
@@ -33,8 +34,16 @@ export const routes: Routes = [
     component:PatientRegister
   },
   {
+    path:'patient/forgot-password',
+    component:ForgotPassword
+  },
+  {
     path:'doctor-register',
     component:DoctorRegister
+  },
+  {
+    path:'doctor/forgot-password',
+    component:ForgotPassword
   },
   {
   path: 'patient',

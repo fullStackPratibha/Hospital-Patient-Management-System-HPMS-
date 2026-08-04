@@ -9,6 +9,7 @@ export const roleGuard = (allowedRoles: string[]): CanActivateFn => {
     
     const auth = inject(Auth);
     const router = inject(Router);
+    
 
     const userRole = localStorage
       .getItem('role')

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component,inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PatientState } from '../../../core/services/patient-state';
 
 @Component({
   selector: 'app-profile',
@@ -9,14 +10,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './profile.css'
 })
 export class Profile {
-  patient = {
-    name: 'Alexander Smith',
-    id: 'PAT-8829-2024',
-    memberSince: 'October 2021',
-    email: 'alex.smith@email.com',
-    phone: '+1 (555) 123-4567',
-    avatar: 'https://i.pravatar.cc/160?img=13'
-  };
+  patientState = inject(PatientState);
+
+  patient =
+ this.patientState.patient;
 
   vitals = {
     bloodGroup: 'A+',

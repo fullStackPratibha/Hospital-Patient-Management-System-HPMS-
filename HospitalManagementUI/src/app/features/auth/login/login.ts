@@ -6,6 +6,7 @@ import { map } from 'rxjs';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../../core/services/auth';
 import { LoginRequest } from '../../../core/models/auth/login-request';
+import { AuthState } from '../../../core/services/auth-state';
 
 type Role = 'patient' | 'doctor' | 'admin';
 
@@ -18,7 +19,7 @@ interface RoleTab {
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterLink,ReactiveFormsModule],
+  imports: [CommonModule, RouterLink,ReactiveFormsModule,],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -34,6 +35,7 @@ export class LoginComponent {
   private auth = inject(Auth);
   private router = inject(Router);
   errorMessage = signal('');
+  private authState = inject(AuthState);
 
   // UI relate logic
   private roleParam = toSignal(
@@ -110,33 +112,20 @@ onSubmit(): void {
     next: (response) => {
       const apiRole = response.data.role.toLowerCase();
 
-      // Safety check:
-      // UI Patient hai but API Patient nahi bhej rahi
+      // Safety check: UI Patient hai but API Patient nahi bhej rahi
       if(apiRole !== selectedRole) {
         this.errorMessage.set(
           'Invalid login role'
         );
         return;
       }
-
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('email',response.data.email);
-      localStorage.setItem('role', apiRole);
       
-      console.log(
-  "Token Expired:",
-  this.auth.isTokenExpired()
-);
-
-
-console.log(
-  "Login Status:",
-  this.auth.isLoggedIn()
-);
-
-      this.router.navigate([
-        '/patient/dashboard'
-      ]);
+      this.authState.loadCurrentUser().subscribe({
+        next: (userResponse) => {
+          this.authState.setCurrentUser(userResponse.data);
+          this.router.navigate(['/patient/dashboard']);
+        }
+      });
     },
     error: (error) => {
       this.errorMessage.set(

@@ -1,7 +1,7 @@
 import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoleTabsComponent } from '../shared/role-tabs';
-import { RouterLink } from '@angular/router';
+import { RouterLink,Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { RegisterRequest } from '../../../core/models/auth/register-request'
 import { Auth } from '../../../core/services/auth';
@@ -34,6 +34,7 @@ export class PatientRegister {
   errorMessage = signal('');
   private fb = inject(FormBuilder);
   private auth = inject(Auth);
+  private router = inject(Router);
 
   registerForm = this.fb.group({
     firstName: ['', [Validators.required]],
@@ -61,6 +62,7 @@ export class PatientRegister {
     next: (response:any) => {
       alert("Registration Successful");
       console.log(response);
+      this.router.navigate(['/login/patient']);
     },
 
     error: (error:any) => {
@@ -100,7 +102,7 @@ export class PatientRegister {
 passwordsMatch(): boolean {
 
   return this.registerForm.value.password ===
-         this.registerForm.value.confirmPassword;
+    this.registerForm.value.confirmPassword;
 
 }
 

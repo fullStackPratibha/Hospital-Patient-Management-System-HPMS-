@@ -1,7 +1,9 @@
 import { Component,inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive,Router } from '@angular/router';
+import { AuthState } from '../../../../core/services/auth-state';
 import { Auth } from '../../../../core/services/auth';
+import { PatientState } from '../../../../core/services/patient-state';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,8 +14,10 @@ import { Auth } from '../../../../core/services/auth';
 })
 export class Sidebar {
   private router = inject(Router);
+  private authState = inject(AuthState);
   private auth = inject(Auth);
-
+  private patientState = inject(PatientState);
+  
   navItems = [
   { path: '/patient/dashboard', label: 'Dashboard', icon: 'grid' },
   { path: '/patient/appointments', label: 'Appointments', icon: 'calendar' },
@@ -22,15 +26,14 @@ export class Sidebar {
   { path: '/patient/profile', label: 'Profile', icon: 'user' },
 ];
 
-  logout(): void {
+  logout(){
+   this.auth.logout().subscribe({
+      next:()=>{
+         this.authState.setCurrentUser(null);
+         this.patientState.clearPatient();
+         this.router.navigate(['/login/patient']);
+      }
+   });
+}
 
-   this.auth.logout();
-
-  console.log(
-    "Logout Status:",
-    this.auth.isLoggedIn()
-  );
-
-    this.router.navigate(['/login/patient']);
-  }
 }

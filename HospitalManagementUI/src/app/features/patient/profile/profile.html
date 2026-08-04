@@ -18,22 +18,22 @@
 
   <div class="grid-top">
     <div class="card identity-card">
-      <img class="avatar" [src]="patient.avatar" alt="{{ patient.name }}" />
+      <img class="avatar" src="https://i.pravatar.cc/160?img=13" alt="{{ patient()?.fullName }}" />
       <div class="identity-body">
         <div class="identity-row">
-          <h2>{{ patient.name }}</h2>
-          <span class="id-badge">ID: {{ patient.id }}</span>
+          <h2>{{ patient()?.fullName }}</h2>
+          <span class="id-badge">ID: {{ patient()?.id }}</span>
         </div>
-        <p class="member-since">Member since {{ patient.memberSince }}</p>
+        <p class="member-since">Member since October 2021</p>
 
         <div class="contact-row">
           <span class="contact-chip">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#123ea8" stroke-width="1.7"/><path d="M4 7l8 6 8-6" stroke="#123ea8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            {{ patient.email }}
+             demo@gmail.com 
           </span>
           <span class="contact-chip">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6.5 4.5c1 0 2.4 2 2.4 3s-1.2 1.6-1.2 2.4c0 1.6 2.9 4.5 4.5 4.5.8 0 1.4-1.2 2.4-1.2s3 1.4 3 2.4c0 1.3-1.5 2.9-3 2.9-4 0-10-6-10-10 0-1.5 1.6-3 2.9-3z" stroke="#123ea8" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            {{ patient.phone }}
+            +91 8998 989 898
           </span>
         </div>
       </div>

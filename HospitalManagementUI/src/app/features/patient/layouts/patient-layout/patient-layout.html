@@ -1,3 +1,38 @@
+@if(patientState.loading()){
+
+
+<div class="loading-container">
+
+<div class="loading-card">
+
+<div class="loader"></div>
+
+<p>
+Loading patient data...
+</p>
+
+</div>
+
+</div>
+
+
+}
+
+@else if(patientState.error()){
+
+
+<div class="error-card">
+
+{{patientState.error()}}
+
+</div>
+
+
+}
+
+@else {
+
+
 <div class="layout">
 
     <app-sidebar></app-sidebar>
@@ -9,3 +44,6 @@
     </div>
 
 </div>
+
+
+}

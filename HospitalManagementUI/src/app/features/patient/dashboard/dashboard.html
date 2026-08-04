@@ -1,9 +1,9 @@
+@if(patientProfile()){
 <app-topbar searchPlaceholder="Search records, doctors..."></app-topbar>
-
 <div class="dashboard">
   <div class="page-head">
     <div>
-      <h1>Good Morning, {{ patientName }}</h1>
+      <h1>Good Morning, {{patientProfile()?.fullName}}</h1>
       <p>Here is what is happening with your health today.</p>
     </div>
     <button class="btn-primary">
@@ -104,3 +104,4 @@
     </div>
   </div>
 </div>
+}
