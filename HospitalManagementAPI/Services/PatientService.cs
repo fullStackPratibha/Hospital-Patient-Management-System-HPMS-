@@ -37,6 +37,18 @@ public class PatientService : IPatientService
         return _mapper.Map<PatientDto>(patient);
     }
 
+    public async Task<PatientDto?> GetByUserIdAsync(int userId)
+    {
+        var patient = await _patientRepository
+            .GetByUserIdAsync(userId);
+
+        if (patient == null)
+        {
+            return null;
+        }
+        return _mapper.Map<PatientDto>(patient);
+    }
+
     public async Task<PatientDto?> GetByIdAsync(int id)
     {
         var patient = await _patientRepository.GetByIdAsync(id);

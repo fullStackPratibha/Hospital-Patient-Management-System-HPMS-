@@ -41,7 +41,8 @@ builder.Services.AddCors(options =>
         policy
         .WithOrigins("http://localhost:4200")
         .AllowAnyHeader()
-        .AllowAnyMethod();
+        .AllowAnyMethod()
+        .AllowCredentials();
     });
 });
 
@@ -89,6 +90,16 @@ builder.Services.AddAuthentication(options =>
 
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(jwtSettings.Key))
+    };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var token  = context.Request.Cookies["access_token"];
+            context.Token = token;
+            return Task.CompletedTask;
+        }
     };
 });
 

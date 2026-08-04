@@ -27,7 +27,17 @@ namespace HospitalManagementAPI.Repositories;
         {
             await _context.SaveChangesAsync();
         }
-        public async Task<Patient?> GetByIdAsync(int id)
+
+    public async Task<Patient?> GetByUserIdAsync(int userId)
+    {
+        return await _context.Patients
+            .Include(p => p.User)
+            .FirstOrDefaultAsync(
+                p => p.UserId == userId
+            );
+    }
+
+    public async Task<Patient?> GetByIdAsync(int id)
         {
             return await _context.Patients.AsNoTracking().Where(p=>p.Id == id && !p.IsDeleted).FirstOrDefaultAsync();
         }

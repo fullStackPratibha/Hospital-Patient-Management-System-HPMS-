@@ -1,11 +1,10 @@
-using Azure;
 using HospitalManagementAPI.DTOs.Auth;
 using HospitalManagementAPI.Entities;
 using HospitalManagementAPI.Enums;
 using HospitalManagementAPI.Exceptions;
 using HospitalManagementAPI.Interfaces;
+using HospitalManagementAPI.Models.Auth;
 using HospitalManagementAPI.Response;
-using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalManagementAPI.Services;
 
@@ -65,7 +64,7 @@ public class AuthService(
         );
     }
 
-    public async Task<ApiResponse<LoginResponseDto>> LoginAsync(LoginRequestDto requestDto)
+    public async Task<LoginResult> LoginAsync(LoginRequestDto requestDto)
     {
         requestDto.Email = requestDto.Email.Trim().ToLower();
 
@@ -84,9 +83,7 @@ public class AuthService(
 
         if(!isvalidPassword)
         {
-            logger.LogWarning(
-    "Invalid password for Email: {Email}",
-    requestDto.Email);
+            logger.LogWarning("Invalid password for Email: {Email}",requestDto.Email);
             throw new InvalidCredentialException("Invalid Email or Password.");
         }
         string token = jwtTokenGenerator.GenerateToken(user);
@@ -95,18 +92,12 @@ public class AuthService(
     user.Id,
     user.Email);
 
-        var response = new LoginResponseDto
+        return new LoginResult
         {
             Token = token,
             Email = user.Email,
             Role = user.Role.ToString()
         };
-        return new ApiResponse<LoginResponseDto>(
-            true,
-            StatusCodes.Status200OK,
-            "Login Successful",
-            response
-            );
     }
 
 }

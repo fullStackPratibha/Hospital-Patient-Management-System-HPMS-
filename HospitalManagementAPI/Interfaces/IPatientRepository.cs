@@ -4,6 +4,7 @@ namespace HospitalManagementAPI.Interfaces;
     public interface IPatientRepository
     {
         Task<List<Patient>> GetAllAsync();
+        Task<Patient?> GetByUserIdAsync(int userId);
         Task<Patient?> GetByIdAsync(int id);
         Task AddAsync(Patient patient);
         Task SaveChangesAsync();

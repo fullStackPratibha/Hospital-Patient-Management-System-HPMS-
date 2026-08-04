@@ -53,6 +53,42 @@ public class PatientController : ControllerBase
             response);
     }
 
+    [HttpGet("me")]
+    public async Task<IActionResult> GetMyProfile()
+    {
+    
+        var userIdClaim = User.FindFirst(
+            System.Security.Claims.ClaimTypes.NameIdentifier
+        );
+
+        if (userIdClaim == null)
+        {
+            return Unauthorized();
+        }
+
+        int userId = int.Parse(userIdClaim.Value);
+
+        var patient = await _patientService
+            .GetByUserIdAsync(userId);
+        
+
+        if (patient == null)
+        {
+            return NotFound();
+        }
+
+        var response = new ApiResponse<PatientDto>(
+            true,
+            StatusCodes.Status200OK,
+            "Patient profile fetched successfully.",
+            patient
+        );
+
+        return Ok(response);
+    }
+
+
+
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetPatientById([FromRoute]int id)
     {

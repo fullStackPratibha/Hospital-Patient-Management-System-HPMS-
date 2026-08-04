@@ -1,0 +1,67 @@
+[2026-08-04 16:16:17 INF] Hospital Management API Started Successfully.
+[2026-08-04 16:41:08 INF] Hospital Management API Started Successfully.
+[2026-08-04 18:32:46 WRN] Failed to determine the https port for redirect.
+[2026-08-04 18:32:48 INF] User logged in successfully. UserId: 16, Email: jiya498@gmail.com
+[2026-08-04 18:35:05 INF] User logged in successfully. UserId: 16, Email: jiya498@gmail.com
+[2026-08-04 18:35:51 INF] Hospital Management API Started Successfully.
+[2026-08-04 18:36:17 WRN] Failed to determine the https port for redirect.
+[2026-08-04 18:36:18 INF] User logged in successfully. UserId: 16, Email: jiya498@gmail.com
+[2026-08-04 18:36:56 INF] User logged in successfully. UserId: 19, Email: jay78@gmail.com
+[2026-08-04 19:50:47 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 19:51:14 INF] Hospital Management API Started Successfully.
+[2026-08-04 19:51:31 WRN] Failed to determine the https port for redirect.
+[2026-08-04 19:51:33 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 19:51:33 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 19:51:33 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 19:54:15 INF] User logged in successfully. UserId: 19, Email: jay78@gmail.com
+[2026-08-04 20:14:15 INF] User registered successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 20:14:31 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 20:15:48 INF] Deleting patient 4
+[2026-08-04 21:43:42 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 21:43:53 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 21:44:18 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 21:50:28 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 21:54:08 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 21:54:13 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 22:00:41 INF] Hospital Management API Started Successfully.
+[2026-08-04 22:00:49 WRN] Failed to determine the https port for redirect.
+[2026-08-04 22:00:51 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 22:06:21 INF] Hospital Management API Started Successfully.
+[2026-08-04 22:06:48 INF] Hospital Management API Started Successfully.
+[2026-08-04 22:06:55 WRN] Failed to determine the https port for redirect.
+[2026-08-04 22:06:56 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 22:09:57 INF] Hospital Management API Started Successfully.
+[2026-08-04 22:10:32 WRN] Failed to determine the https port for redirect.
+[2026-08-04 22:10:34 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 22:16:12 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 22:18:55 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 22:32:30 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-04 22:33:37 WRN] Invalid password for Email: ram@gmail.com
+[2026-08-04 22:33:37 ERR] Unhandled Exception occurred.
+Path: /api/auth/login
+TraceId: 0HNNI8SD0VQ8M:00000005
+HospitalManagementAPI.Exceptions.InvalidCredentialException: Invalid Email or Password.
+   at HospitalManagementAPI.Services.AuthService.LoginAsync(LoginRequestDto requestDto) in C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\HospitalManagementAPI\Services\AuthService.cs:line 87
+   at HospitalManagementAPI.Controllers.AuthController.Login(LoginRequestDto loginRequestDto) in C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\HospitalManagementAPI\Controllers\AuthController.cs:line 33
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at HospitalManagementAPI.Middleware.ExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\PratibhaMaurya\Desktop\Hospital-Patient-Management-System-HPMS-\HospitalManagementAPI\Middleware\ExceptionMiddleware.cs:line 24
+[2026-08-04 22:33:46 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 22:43:28 INF] Hospital Management API Started Successfully.
+[2026-08-04 22:43:30 WRN] Failed to determine the https port for redirect.
+[2026-08-04 22:43:32 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 23:20:33 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 23:21:40 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 23:22:06 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 23:23:47 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 23:27:25 INF] Hospital Management API Started Successfully.
+[2026-08-04 23:28:10 WRN] Failed to determine the https port for redirect.
