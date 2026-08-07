@@ -6,12 +6,12 @@ namespace HospitalManagementAPI.Interfaces;
 public interface IPatientService
 {
     Task<List<PatientDto>> GetAllPatientsAsync();
-    Task<PatientDto?>  GetByIdAsync(int id);
-    Task<PatientDto?> GetByUserIdAsync(int userId);
-    Task<PatientDto> CreateAsync(CreatePatientDto dto);
+    Task<PatientDto?>  GetPatientByIdAsync(int id);
+    Task<PatientProfileDto?> GetPatientByUserIdAsync(int userId);
+    Task<PatientDto> CreatePatientAsync(CreatePatientDto dto);
     
-    Task<bool> UpdateAsync(int id, UpdatePatientDto dto);
+    Task<bool> UpdatePatientAsync(int id, UpdatePatientDto dto);
 
-    Task<bool> DeleteAsync(int id);
+    Task<bool> DeletePatientAsync(int id);
     
 }

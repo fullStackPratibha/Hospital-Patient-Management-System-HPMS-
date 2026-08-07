@@ -22,6 +22,96 @@ namespace HospitalManagementAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("HospitalManagementAPI.Entities.Appointment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("HospitalManagementAPI.Entities.Doctor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ExperienceYears")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Specialization")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("HospitalManagementAPI.Entities.MedicalRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Diagnosis")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId")
+                        .IsUnique();
+
+                    b.ToTable("MedicalRecords");
+                });
+
             modelBuilder.Entity("HospitalManagementAPI.Entities.Patient", b =>
                 {
                     b.Property<int>("Id")
@@ -53,17 +143,45 @@ namespace HospitalManagementAPI.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
+
                     b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Patients");
+                });
+
+            modelBuilder.Entity("HospitalManagementAPI.Entities.Prescription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("FollowUpDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Medicines")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RecordId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecordId")
+                        .IsUnique();
+
+                    b.ToTable("Prescriptions");
                 });
 
             modelBuilder.Entity("HospitalManagementAPI.Entities.User", b =>
@@ -80,6 +198,10 @@ namespace HospitalManagementAPI.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -103,6 +225,47 @@ namespace HospitalManagementAPI.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("HospitalManagementAPI.Entities.Appointment", b =>
+                {
+                    b.HasOne("HospitalManagementAPI.Entities.Doctor", "Doctor")
+                        .WithMany("Appointments")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("HospitalManagementAPI.Entities.Patient", "Patient")
+                        .WithMany("Appointments")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("HospitalManagementAPI.Entities.Doctor", b =>
+                {
+                    b.HasOne("HospitalManagementAPI.Entities.User", "User")
+                        .WithOne("Doctor")
+                        .HasForeignKey("HospitalManagementAPI.Entities.Doctor", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HospitalManagementAPI.Entities.MedicalRecord", b =>
+                {
+                    b.HasOne("HospitalManagementAPI.Entities.Appointment", "Appointment")
+                        .WithOne("MedicalRecord")
+                        .HasForeignKey("HospitalManagementAPI.Entities.MedicalRecord", "AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+                });
+
             modelBuilder.Entity("HospitalManagementAPI.Entities.Patient", b =>
                 {
                     b.HasOne("HospitalManagementAPI.Entities.User", "User")
@@ -114,8 +277,41 @@ namespace HospitalManagementAPI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("HospitalManagementAPI.Entities.Prescription", b =>
+                {
+                    b.HasOne("HospitalManagementAPI.Entities.MedicalRecord", "MedicalRecord")
+                        .WithOne("Prescription")
+                        .HasForeignKey("HospitalManagementAPI.Entities.Prescription", "RecordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MedicalRecord");
+                });
+
+            modelBuilder.Entity("HospitalManagementAPI.Entities.Appointment", b =>
+                {
+                    b.Navigation("MedicalRecord");
+                });
+
+            modelBuilder.Entity("HospitalManagementAPI.Entities.Doctor", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
+            modelBuilder.Entity("HospitalManagementAPI.Entities.MedicalRecord", b =>
+                {
+                    b.Navigation("Prescription");
+                });
+
+            modelBuilder.Entity("HospitalManagementAPI.Entities.Patient", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
             modelBuilder.Entity("HospitalManagementAPI.Entities.User", b =>
                 {
+                    b.Navigation("Doctor");
+
                     b.Navigation("Patient");
                 });
 #pragma warning restore 612, 618

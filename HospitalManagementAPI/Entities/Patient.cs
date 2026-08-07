@@ -14,5 +14,7 @@ namespace HospitalManagementAPI.Entities;
         public string PhoneNumber { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
         public bool IsDeleted { get; set; } = false;
+        
+        public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
        

@@ -36,4 +36,10 @@ public class RegisterRequestDto
 
     [Required]
     public string Address { get; set; } = string.Empty;
+
+    public UserRole Role { get; set; } = UserRole.Patient; // Default to Patient
+
+    public string? Specialization { get; set; }
+    
+    public int? ExperienceYears { get; set; }
 }

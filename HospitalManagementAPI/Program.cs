@@ -12,6 +12,7 @@ using HospitalManagementAPI.Middleware;
 using HospitalManagementAPI.Helpers;
 using HospitalManagementAPI.Configurations;
 using System.Text.Json.Serialization;
+using Microsoft.OpenApi.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,16 +48,17 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 
 builder.Services.AddScoped<IUserRepository,UserRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
 
-builder.Services.AddAutoMapper(typeof(PatientProfile));
-
-builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddAutoMapper(typeof(PatientAutoMap));
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 
@@ -66,6 +68,42 @@ builder.Services.AddScoped<IJwtTokenGenerator,JwtTokenGenerator>();
 
 
 builder.Services.AddControllers();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "Hospital Management System API", 
+        Version = "v1",
+        Description = "Backend API for HPMS"
+    });
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter your JWT token directly (without 'Bearer ' prefix)."
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 builder.Services.AddAuthentication(options =>
 {
@@ -106,8 +144,15 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 app.UseHttpsRedirection();
 app.UseCors("AngularPolicy");
+app.UseSerilogRequestLogging();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();

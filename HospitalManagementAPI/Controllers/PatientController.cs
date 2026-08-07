@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HospitalManagementAPI.Controllers;
 
-[Authorize(Roles = "Patient")]
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class PatientController : ControllerBase
@@ -21,6 +21,7 @@ public class PatientController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin,Doctor")]
     public async Task<IActionResult> GetPatients()
     {
         _logger.LogInformation("Fetching all patients.");
@@ -35,10 +36,11 @@ public class PatientController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreatePatient([FromBody]CreatePatientDto dto)
     {
         _logger.LogInformation("Creating patient with PhoneNumber {PhoneNumber}",dto.PhoneNumber);
-        var patient = await _patientService.CreateAsync(dto);
+        var patient = await _patientService.CreatePatientAsync(dto);
         _logger.LogInformation("Patient created successfully.");
 
         var response = new ApiResponse<PatientDto>(
@@ -53,10 +55,10 @@ public class PatientController : ControllerBase
             response);
     }
 
-    [HttpGet("me")]
+    [HttpGet("profile")]
+    [Authorize(Roles = "Patient")]
     public async Task<IActionResult> GetMyProfile()
     {
-    
         var userIdClaim = User.FindFirst(
             System.Security.Claims.ClaimTypes.NameIdentifier
         );
@@ -69,7 +71,7 @@ public class PatientController : ControllerBase
         int userId = int.Parse(userIdClaim.Value);
 
         var patient = await _patientService
-            .GetByUserIdAsync(userId);
+            .GetPatientByUserIdAsync(userId);
         
 
         if (patient == null)
@@ -77,7 +79,7 @@ public class PatientController : ControllerBase
             return NotFound();
         }
 
-        var response = new ApiResponse<PatientDto>(
+        var response = new ApiResponse<PatientProfileDto>(
             true,
             StatusCodes.Status200OK,
             "Patient profile fetched successfully.",
@@ -87,13 +89,29 @@ public class PatientController : ControllerBase
         return Ok(response);
     }
 
-
-
     [HttpGet("{id:int}")]
+    [Authorize]
     public async Task<IActionResult> GetPatientById([FromRoute]int id)
     {
         _logger.LogInformation($"Fetching patient with Id {id}");
-        var patients = await _patientService.GetByIdAsync(id);
+
+        // BOLA Check: Patients can only fetch their own profile
+        if (User.IsInRole("Patient"))
+        {
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            var ownPatient = await _patientService.GetPatientByUserIdAsync(int.Parse(userIdClaim.Value));
+            if (ownPatient == null || ownPatient.Id != id)
+            {
+                return Forbid();
+            }
+        }
+
+        var patients = await _patientService.GetPatientByIdAsync(id);
         if (patients == null)
         {
             return NotFound();
@@ -107,10 +125,24 @@ public class PatientController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "Patient")]
     public async Task<IActionResult> UpdatePatient([FromRoute]int id, [FromBody] UpdatePatientDto dto)
     {
         _logger.LogInformation("Updating patient {Id}", id);
-        bool result = await _patientService.UpdateAsync(id, dto);
+
+        var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+        if (userIdClaim == null)
+        {
+            return Unauthorized();
+        }
+
+        var ownPatient = await _patientService.GetPatientByUserIdAsync(int.Parse(userIdClaim.Value));
+        if (ownPatient == null || ownPatient.Id != id)
+        {
+            return Forbid();
+        }
+
+        bool result = await _patientService.UpdatePatientAsync(id, dto);
         if (!result)
         {
             return NotFound();
@@ -125,10 +157,11 @@ public class PatientController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeletePatient([FromRoute]int id)
     {
         _logger.LogInformation("Deleting patient {Id}", id);
-        bool result = await _patientService.DeleteAsync(id);
+        bool result = await _patientService.DeletePatientAsync(id);
         if (!result)
         {
             return NotFound();
@@ -140,6 +173,5 @@ public class PatientController : ControllerBase
         null);
 
         return Ok(response);
-       
     }
 } 

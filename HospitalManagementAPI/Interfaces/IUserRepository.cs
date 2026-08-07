@@ -4,10 +4,10 @@ namespace HospitalManagementAPI.Interfaces;
 
 public interface IUserRepository
 {
-    Task<bool> EmailExitsAsync(string email);
-    Task<User?> GetByEmailAsync(string email);
-    Task<User?> GetByIdAsync(int id);
-    Task AddAsync(User user);
-    Task SaveChangesAsync();
+    Task<bool> UserEmailExistsAsync(string email);
+    Task<User?> GetUserByEmailAsync(string email);
+    Task<User?> GetUserByIdAsync(int id);
+    Task AddUserAsync(User user);
+    Task SaveUserChangesAsync();
 
 }

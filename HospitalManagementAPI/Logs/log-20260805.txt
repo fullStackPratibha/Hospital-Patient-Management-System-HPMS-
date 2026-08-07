@@ -1,0 +1,23 @@
+[2026-08-05 00:22:16 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-05 00:28:25 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-05 00:35:45 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-05 00:36:19 INF] Hospital Management API Started Successfully.
+[2026-08-05 00:36:19 WRN] Failed to determine the https port for redirect.
+[2026-08-05 00:36:23 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-05 00:36:23 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-05 00:36:23 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-05 00:36:23 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-05 00:36:28 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-05 00:42:04 INF] Hospital Management API Started Successfully.
+[2026-08-05 00:42:08 WRN] Failed to determine the https port for redirect.
+[2026-08-05 00:42:11 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-05 00:42:11 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-05 00:42:15 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com
+[2026-08-05 01:01:10 INF] User logged in successfully. UserId: 10, Email: radha@gmail.com
+[2026-08-05 13:47:38 INF] Hospital Management API Started Successfully.
+[2026-08-05 14:09:25 WRN] Failed to determine the https port for redirect.
+[2026-08-05 14:15:50 INF] User registered successfully. UserId: 21, Email: text@abc.com
+[2026-08-05 14:16:52 INF] User logged in successfully. UserId: 21, Email: text@abc.com
+[2026-08-05 14:35:34 INF] User logged in successfully. UserId: 19, Email: jay78@gmail.com
+[2026-08-05 14:35:53 INF] Fetching patient with Id 9
+[2026-08-05 14:36:08 INF] Fetching patient with Id 10

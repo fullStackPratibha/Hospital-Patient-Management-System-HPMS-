@@ -10,6 +10,8 @@ namespace HospitalManagementAPI.Services;
 
 public class AuthService(
     IUserRepository userRepository,
+    IPatientRepository patientRepository,
+    IDoctorRepository doctorRepository,
     IPasswordHasher passwordHasher, 
     IJwtTokenGenerator jwtTokenGenerator,
     ILogger<AuthService> logger) : IAuthService
@@ -17,7 +19,7 @@ public class AuthService(
     public async Task<ApiResponse<string>> RegisterAsync(RegisterRequestDto requestDto)
     {
         requestDto.Email = requestDto.Email.Trim().ToLower();
-        if(await userRepository.EmailExitsAsync(requestDto.Email))
+        if(await userRepository.UserEmailExistsAsync(requestDto.Email))
         {
             throw new DuplicateEmailException("Email already Exists.");
         }
@@ -29,37 +31,63 @@ public class AuthService(
 
         var user = new User
         {
+            FullName = $"{requestDto.FirstName} {requestDto.LastName}".Trim(),
             Email = requestDto.Email,
             PasswordHash = passwordHash,
             PasswordSalt = passwordSalt,
-            Role = UserRole.Patient,
+            Role = requestDto.Role,
             IsActive = true
         };
 
-        var patient = new Patient
+        if (requestDto.Role == UserRole.Doctor)
         {
-            FirstName = requestDto.FirstName,
-            LastName = requestDto.LastName,
-            PhoneNumber = requestDto.Phone,
-            Gender = requestDto.Gender,
-            DateOfBirth = requestDto.DateOfBirth,
-            Address = requestDto.Address,
-            IsDeleted = false
-        };
+            var existingDoctorPhone = await doctorRepository.GetDoctorByPhoneAsync(requestDto.Phone);
+            if (existingDoctorPhone != null)
+            {
+                throw new DuplicatePhoneException("Doctor phone number already exists.");
+            }
 
-        user.Patient = patient;
+            var doctor = new Doctor
+            {
+                Specialization = requestDto.Specialization ?? string.Empty,
+                ExperienceYears = requestDto.ExperienceYears ?? 0,
+                PhoneNumber = requestDto.Phone
+            };
+            user.Doctor = doctor;
+        }
+        else
+        {
+            var existingPatientPhone = await patientRepository.GetPatientByPhoneAsync(requestDto.Phone);
+            if (existingPatientPhone != null)
+            {
+                throw new DuplicatePhoneException("Patient phone number already exists.");
+            }
 
-        await userRepository.AddAsync(user);
-        await userRepository.SaveChangesAsync();
+            var patient = new Patient
+            {
+                FirstName = requestDto.FirstName,
+                LastName = requestDto.LastName,
+                PhoneNumber = requestDto.Phone,
+                Gender = requestDto.Gender,
+                DateOfBirth = requestDto.DateOfBirth,
+                Address = requestDto.Address,
+                IsDeleted = false
+            };
+            user.Patient = patient;
+        }
+
+        await userRepository.AddUserAsync(user);
+        await userRepository.SaveUserChangesAsync();
         logger.LogInformation(
-    "User registered successfully. UserId: {UserId}, Email: {Email}",
+    "User registered successfully. UserId: {UserId}, Email: {Email}, Role: {Role}",
     user.Id,
-    user.Email);
+    user.Email,
+    user.Role);
 
         return new ApiResponse<string>(
         true,
         StatusCodes.Status201Created,
-        "Register logic created successfully.",
+        "User registered successfully.",
         $"User Id {user.Id}"
         );
     }
@@ -68,7 +96,7 @@ public class AuthService(
     {
         requestDto.Email = requestDto.Email.Trim().ToLower();
 
-        var user = await userRepository.GetByEmailAsync( requestDto.Email );
+        var user = await userRepository.GetUserByEmailAsync( requestDto.Email );
         if(user == null)
         {
             logger.LogWarning(

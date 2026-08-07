@@ -3,12 +3,12 @@ using HospitalManagementAPI.Entities;
 namespace HospitalManagementAPI.Interfaces;
     public interface IPatientRepository
     {
-        Task<List<Patient>> GetAllAsync();
-        Task<Patient?> GetByUserIdAsync(int userId);
-        Task<Patient?> GetByIdAsync(int id);
-        Task AddAsync(Patient patient);
-        Task SaveChangesAsync();
-        Task<Patient?> GetByPhoneAsync(string phoneNumber);
-        Task UpdateAsync(Patient patient);
-        Task<bool> DeleteAsync(int id);
+        Task<List<Patient>> GetAllPatientsAsync();
+        Task<Patient?> GetPatientByUserIdAsync(int userId);
+        Task<Patient?> GetPatientByIdAsync(int id);
+        Task AddPatientAsync(Patient patient);
+        Task SavePatientChangesAsync();
+        Task<Patient?> GetPatientByPhoneAsync(string phoneNumber);
+        Task UpdatePatientAsync(Patient patient);
+        Task<bool> DeletePatientAsync(int id);
     }

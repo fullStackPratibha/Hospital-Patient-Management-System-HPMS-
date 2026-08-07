@@ -1,0 +1,4 @@
+[2026-08-07 14:27:21 INF] Hospital Management API Started Successfully.
+[2026-08-07 18:03:29 ERR] Failed executing DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [IX_Patients_PhoneNumber] ON [Patients] ([PhoneNumber]);
+[2026-08-07 19:29:08 INF] Hospital Management API Started Successfully.

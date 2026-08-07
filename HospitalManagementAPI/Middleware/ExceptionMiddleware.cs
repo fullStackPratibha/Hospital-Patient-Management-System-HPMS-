@@ -46,6 +46,9 @@ public class ExceptionMiddleware
                 case UnauthorizedAccessException:
                     context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                     break;
+                case InvalidCredentialException:
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    break;
                 case ArgumentException:
                     context.Response.StatusCode = StatusCodes.Status400BadRequest;
                     break;

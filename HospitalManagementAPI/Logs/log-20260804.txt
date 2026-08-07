@@ -65,3 +65,11 @@ HospitalManagementAPI.Exceptions.InvalidCredentialException: Invalid Email or Pa
 [2026-08-04 23:23:47 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
 [2026-08-04 23:27:25 INF] Hospital Management API Started Successfully.
 [2026-08-04 23:28:10 WRN] Failed to determine the https port for redirect.
+[2026-08-04 23:35:38 INF] Hospital Management API Started Successfully.
+[2026-08-04 23:35:38 WRN] Failed to determine the https port for redirect.
+[2026-08-04 23:35:39 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 23:46:11 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 23:46:35 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 23:53:27 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 23:57:32 INF] User logged in successfully. UserId: 12, Email: ram@gmail.com
+[2026-08-04 23:58:35 INF] User logged in successfully. UserId: 20, Email: maa@gmail.com

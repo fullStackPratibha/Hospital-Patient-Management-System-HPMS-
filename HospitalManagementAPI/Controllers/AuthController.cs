@@ -33,8 +33,8 @@ public class AuthController(IAuthService authService, IOptions<JwtSettings> jwtO
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
-            Secure = false,
-            SameSite = SameSiteMode.Lax,
+            Secure = true, // Ensure cookie is only transmitted over HTTPS
+            SameSite = SameSiteMode.Strict, // Mitigate CSRF risk
             Expires = DateTimeOffset.UtcNow.AddMinutes(
                 jwtOptions.Value.ExpiryMinutes)
         };
@@ -74,8 +74,8 @@ public class AuthController(IAuthService authService, IOptions<JwtSettings> jwtO
     }
 
     [Authorize]
-    [HttpGet("me")]
-    public IActionResult Me()
+    [HttpGet("current-user")]
+    public IActionResult CurrentUser()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var email = User.FindFirstValue(ClaimTypes.Email);

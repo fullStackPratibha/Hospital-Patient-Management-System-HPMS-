@@ -13,22 +13,22 @@ namespace HospitalManagementAPI.Repositories;
             _context = context;
         }
 
-        public async Task<List<Patient>> GetAllAsync()
+        public async Task<List<Patient>> GetAllPatientsAsync()
         {
             return await _context.Patients.AsNoTracking().Where(p=>!p.IsDeleted).ToListAsync();
         }
 
-        public async Task AddAsync(Patient patient)
+        public async Task AddPatientAsync(Patient patient)
         {
             await _context.Patients.AddAsync(patient);
         }
 
-        public async Task SaveChangesAsync()
+        public async Task SavePatientChangesAsync()
         {
             await _context.SaveChangesAsync();
         }
 
-    public async Task<Patient?> GetByUserIdAsync(int userId)
+    public async Task<Patient?> GetPatientByUserIdAsync(int userId)
     {
         return await _context.Patients
             .Include(p => p.User)
@@ -37,25 +37,27 @@ namespace HospitalManagementAPI.Repositories;
             );
     }
 
-    public async Task<Patient?> GetByIdAsync(int id)
+    public async Task<Patient?> GetPatientByIdAsync(int id)
         {
-            return await _context.Patients.AsNoTracking().Where(p=>p.Id == id && !p.IsDeleted).FirstOrDefaultAsync();
+            return await _context.Patients
+                .Include(p => p.User)
+                .FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
         }
 
-    public async Task<Patient?> GetByPhoneAsync(string phoneNumber)
+    public async Task<Patient?> GetPatientByPhoneAsync(string phoneNumber)
     {
         return await _context.Patients
             .FirstOrDefaultAsync(p => p.PhoneNumber == phoneNumber);
     }
 
-    public async Task UpdateAsync(Patient patient)
+    public async Task UpdatePatientAsync(Patient patient)
         {
             _context.Patients.Update(patient);
 
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeletePatientAsync(int id)
         {
             var patient = await _context.Patients.FindAsync(id);
             if (patient == null)
